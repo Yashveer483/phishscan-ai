@@ -44,10 +44,9 @@ st.markdown("""
 # ── Load Model (cached) ──
 @st.cache_resource
 def load_model():
-    model_path = "D:/CyberDefenseHubwebsite/models/phishscan_final_model"
-    
-    tok = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
-    mdl = AutoModelForSequenceClassification.from_pretrained(model_path, local_files_only=True)
+    model_path = "Yashveer30989/phishscan-model"
+    tok = AutoTokenizer.from_pretrained(model_path)
+    mdl = AutoModelForSequenceClassification.from_pretrained(model_path)
     mdl.eval()
     return tok, mdl
 
