@@ -5,3 +5,5 @@ lime
 python-Levenshtein
 numpy
 datasets
+safetensors
+accelerate
