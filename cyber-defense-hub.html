@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cyber Defense Hub — AI-Powered Cybersecurity Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav>
+  <div class="nav-logo">
+    <div class="shield">🛡</div>
+    Project Zero Trust
+  </div>
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <span>Tools</span>
+      <div class="dropdown-menu">
+        <a href="https://phishscan-ai-4mpcusz7thepqtvh73nkqh.streamlit.app" class="dropdown-item" target="_blank">
+          <div class="di-icon">🎣</div>
+          <div class="di-info">
+            <div class="di-name">PhishScan AI <span class="nav-badge">NEW</span></div>
+            <div class="di-desc">Email Threat Detector & Analyzer</div>
+          </div>
+        </a>
+        <div class="dropdown-item" style="opacity:0.45; cursor:default;">
+          <div class="di-icon">🔗</div>
+          <div class="di-info">
+            <div class="di-name">URL Scanner <span class="nav-badge" style="background:#333;color:#888">SOON</span></div>
+            <div class="di-desc">Malicious link detection</div>
+          </div>
+        </div>
+        <div class="dropdown-item" style="opacity:0.45; cursor:default;">
+          <div class="di-icon">🔐</div>
+          <div class="di-info">
+            <div class="di-name">Password Audit <span class="nav-badge" style="background:#333;color:#888">SOON</span></div>
+            <div class="di-desc">Strength & breach checker</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about">About</a>
+    <a href="#awareness">Learn</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-login">Login</button>
+    <button class="btn-signup">Sign Up Free</button>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-particles" id="particles"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-kicker">AI-Powered Cybersecurity Platform</div>
+      <h1 class="hero-title">
+        Defend Against<br/>
+        <span class="accent">Modern Cyber</span><br/>
+        Threats in Real Time
+      </h1>
+      <p class="hero-desc">
+        Cyber Defense Hub provides intelligent AI tools, educational resources, and real-time scanners to protect you and your organization from phishing, scams, and malicious attacks.
+      </p>
+      <div class="hero-cta">
+        <a href="https://phishscan-ai-4mpcusz7thepqtvh73nkqh.streamlit.app" target="_blank">
+          <button class="cta-primary">🚨 Try PhishScan AI →</button>
+        </a>
+        <button class="cta-secondary" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+          ↓ Explore Platform
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hs-num">3.4B+</span><span class="hs-label">Phishing emails / day</span></div>
+        <div class="hero-stat"><span class="hs-num">94.2%</span><span class="hs-label">Detection accuracy</span></div>
+        <div class="hero-stat"><span class="hs-num">&lt;0.5s</span><span class="hs-label">Scan speed</span></div>
+      </div>
+    </div>
+
+    <div class="hero-card-wrap">
+      <div class="hero-card">
+        <div class="hc-header">
+          <div class="hc-dots">
+            <div class="hc-dot r"></div><div class="hc-dot y"></div><div class="hc-dot g"></div>
+          </div>
+          <div class="hc-title">PHISHSCAN AI — LIVE DEMO</div>
+        </div>
+        <div class="hc-subject">
+          <div class="s-label">SUBJECT</div>
+          <div class="s-val">"Action Required: Verify Your Account Now"</div>
+          <div class="s-warn">⚠ Sender: support@paypa1-secure.com</div>
+        </div>
+        <div class="scan-bar-wrap">
+          <div class="scan-label">
+            <span>Threat Risk Score</span>
+            <span class="scan-pct">88 / 100</span>
+          </div>
+          <div class="scan-track"><div class="scan-fill"></div></div>
+        </div>
+        <div class="threat-tags">
+          <div class="threat-tag high">🚨 Lookalike Domain</div>
+          <div class="threat-tag high">⚠ Urgency Language</div>
+          <div class="threat-tag med">🔗 External Link</div>
+          <div class="threat-tag info">📧 No DKIM/SPF</div>
+        </div>
+        <div class="verdict-box">
+          <div class="verdict-icon">🛑</div>
+          <div class="verdict-text">
+            <div class="v-label">VERDICT</div>
+            <div class="v-val">HIGH RISK — LIKELY PHISHING</div>
+          </div>
+          <div class="verdict-score">88</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ DIVIDER ══════════════ -->
+<div class="divider-bar">
+  <span>AI-Powered Detection</span>
+  <span>Real-Time Analysis</span>
+  <span>Explainable Results</span>
+  <span>Zero Setup Required</span>
+</div>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<section id="about" class="dark-section" style="background: var(--dark2);">
+  <div class="ds-inner">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="sec-label">About the Platform</div>
+        <h2 class="sec-title">🔐 What is <span class="c">Cyber Defense Hub?</span></h2>
+        <p class="sec-sub" style="margin-bottom: 20px;">
+          Cyber Defense Hub is a cybersecurity awareness and protection platform designed to help users identify and defend against modern cyber threats.
+        </p>
+        <p style="font-size:15px; color:var(--muted-d); line-height:1.8; margin-bottom:24px;">
+          Our platform provides intelligent tools, educational resources, and AI-powered security scanners to protect individuals and organizations from phishing, scams, and malicious activities online.
+        </p>
+        <div class="at-stats">
+          <div class="at-stat"><span class="n">10K+</span><span class="l">Emails Scanned</span></div>
+          <div class="at-stat"><span class="n">99.1%</span><span class="l">Uptime SLA</span></div>
+          <div class="at-stat"><span class="n">Free</span><span class="l">Core Tools</span></div>
+          <div class="at-stat"><span class="n">XAI</span><span class="l">Explainable AI</span></div>
+        </div>
+      </div>
+      <div class="about-features reveal" style="transition-delay:0.15s;">
+        <div class="af-item">
+          <div class="af-icon">🤖</div>
+          <div class="af-content">
+            <h4>AI Security Tools</h4>
+            <p>BERT-powered email analysis that goes beyond keyword matching — understanding context, intent, and subtle deception patterns.</p>
+          </div>
+        </div>
+        <div class="af-item">
+          <div class="af-icon">🛡</div>
+          <div class="af-content">
+            <h4>Threat Detection Engine</h4>
+            <p>Two-layer hybrid detection combining deterministic rules with ML models for industry-leading accuracy and speed.</p>
+          </div>
+        </div>
+        <div class="af-item">
+          <div class="af-icon">📚</div>
+          <div class="af-content">
+            <h4>Cyber Awareness Hub</h4>
+            <p>Learn about phishing, social engineering, and safe browsing through concise, actionable guides written for everyday users.</p>
+          </div>
+        </div>
+        <div class="af-item">
+          <div class="af-icon">💡</div>
+          <div class="af-content">
+            <h4>Explainable AI (XAI)</h4>
+            <p>Every result tells you <em>why</em> — highlighting the exact words, links, and header patterns that triggered a threat flag.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FEATURED TOOL ══════════════ -->
+<section id="featured-tool" class="dark-section">
+  <div class="ds-inner">
+    <div class="sec-label reveal">Featured Tool</div>
+    <h2 class="sec-title reveal">🚨 <span class="c">PhishScan AI</span> Email Threat Detector</h2>
+    <p class="sec-sub reveal">Our flagship tool — analyze any email in under a second and get a full threat report with human-readable explanations.</p>
+    <div class="ft-card reveal">
+      <div>
+        <div class="ft-badge">Featured Tool</div>
+        <div class="ft-title"><span>PhishScan AI</span><br/>Email Threat Detector</div>
+        <p class="ft-desc">
+          An AI-powered email analysis engine that detects phishing attempts, malicious links, lookalike domains, and suspicious behavioral patterns. Get a 0–100 risk score and exact reasons — not just "spam" or "safe."
+        </p>
+        <div class="ft-features">
+          <div class="ft-feature">Risk score from 0–100 with confidence rating</div>
+          <div class="ft-feature">Token-level LIME/SHAP explanations</div>
+          <div class="ft-feature">Domain spoofing & lookalike detection</div>
+          <div class="ft-feature">Header authentication checks (SPF, DKIM)</div>
+          <div class="ft-feature">Urgency language & social engineering detection</div>
+        </div>
+        <a href="phishing-detector-hackathon.html">
+          <button class="btn-try">🔍 Try PhishScan Tool →</button>
+        </a>
+      </div>
+      <div class="ft-flow">
+        <div class="flow-step">
+          <div class="flow-num n1">1</div>
+          <div class="flow-icon">📧</div>
+          <div class="flow-content">
+            <div class="fc-title">Upload or Paste Email</div>
+            <div class="fc-sub">Raw .eml file or plain text</div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+          <div class="flow-num n2">2</div>
+          <div class="flow-icon">🔍</div>
+          <div class="flow-content">
+            <div class="fc-title">Rule Engine Pre-Scan</div>
+            <div class="fc-sub">Domain, links, headers analyzed</div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+          <div class="flow-num n3">3</div>
+          <div class="flow-icon">🤖</div>
+          <div class="flow-content">
+            <div class="fc-title">BERT NLP Analysis</div>
+            <div class="fc-sub">Semantic intent classification</div>
+          </div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+          <div class="flow-num n4">4</div>
+          <div class="flow-icon">📊</div>
+          <div class="flow-content">
+            <div class="fc-title">Threat Report Generated</div>
+            <div class="fc-sub">Score + reasons + confidence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ HOW IT WORKS ══════════════ -->
+<section id="how-it-works" class="dark-section" style="background:var(--dark2);">
+  <div class="ds-inner">
+    <div class="sec-label reveal" style="justify-content:center; text-align:center;">How It Works</div>
+    <h2 class="sec-title reveal" style="text-align:center; margin:0 auto 12px;">⚙ How Our <span class="c">AI Protection</span> Works</h2>
+    <p class="sec-sub reveal" style="text-align:center; margin:0 auto 60px;">Three steps from suspicious email to full threat intelligence — automated, instant, explainable.</p>
+    <div class="steps-row">
+      <div class="step-item reveal">
+        <div class="step-circle"><span>📧</span><div class="step-num">1</div></div>
+        <div class="step-title">Submit Email</div>
+        <p class="step-desc">Paste an email body, upload a .eml file, or forward a suspicious message directly to PhishScan.</p>
+      </div>
+      <div class="step-item reveal" style="transition-delay:0.15s;">
+        <div class="step-circle"><span>🧠</span><div class="step-num">2</div></div>
+        <div class="step-title">AI Analyzes Patterns</div>
+        <p class="step-desc">Our hybrid engine checks domains, scans links, evaluates language, and runs BERT semantic classification.</p>
+      </div>
+      <div class="step-item reveal" style="transition-delay:0.3s;">
+        <div class="step-circle"><span>📊</span><div class="step-num">3</div></div>
+        <div class="step-title">Threat Report Generated</div>
+        <p class="step-desc">Receive an instant verdict with a risk score, confidence level, and exactly which signals triggered the alert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ AWARENESS ══════════════ -->
+<section id="awareness" class="dark-section">
+  <div class="ds-inner">
+    <div class="sec-label reveal">Cyber Awareness</div>
+    <h2 class="sec-title reveal">📚 Learn About <span class="c">Cyber Threats</span></h2>
+    <p class="sec-sub reveal">Stay informed. Understanding how attacks work is your first line of defense.</p>
+    <div class="awareness-grid">
+      <div class="aw-card c1 reveal">
+        <span class="aw-icon">🎣</span>
+        <div class="aw-title">Phishing Attacks</div>
+        <p class="aw-desc">Learn how attackers craft convincing fake emails to steal credentials, money, and personal data.</p>
+        <div class="aw-read"><a href="guide-phishing-attacks.html">Read Guide</a></div>
+      </div>
+      <div class="aw-card c2 reveal" style="transition-delay:0.1s;">
+        <span class="aw-icon">🔑</span>
+        <div class="aw-title">Password Security</div>
+        <p class="aw-desc">Why strong, unique passwords matter — and how password managers protect you from credential stuffing.</p>
+        <div class="aw-read">Read Guide</div>
+      </div>
+      <div class="aw-card c3 reveal" style="transition-delay:0.2s;">
+        <span class="aw-icon">🎭</span>
+        <div class="aw-title">Social Engineering</div>
+        <p class="aw-desc">Attackers manipulate people, not just systems. Recognize pretexting, baiting, and impersonation tactics.</p>
+        <div class="aw-read">Read Guide</div>
+      </div>
+      <div class="aw-card c4 reveal" style="transition-delay:0.3s;">
+        <span class="aw-icon">🌐</span>
+        <div class="aw-title">Safe Browsing</div>
+        <p class="aw-desc">Identify malicious URLs, unsafe downloads, and browser-based attacks before they reach your device.</p>
+        <div class="aw-read">Read Guide</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHY CHOOSE ══════════════ -->
+<section id="why" class="dark-section" style="background:var(--dark2);">
+  <div class="ds-inner">
+    <div class="sec-label reveal">Why Choose Us</div>
+    <h2 class="sec-title reveal">🛡 Why Use <span class="c">Cyber Defense Hub?</span></h2>
+    <p class="sec-sub reveal">Built for real people — not just security professionals. Powerful, clear, and free to use.</p>
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <div class="why-check">✔</div>
+        <div class="why-text">
+          <h4>AI-Powered Threat Detection</h4>
+          <p>BERT language models understand context and deception — not just keyword blacklists.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">✔</div>
+        <div class="why-text">
+          <h4>Easy-to-Use Security Tools</h4>
+          <p>No installation, no configuration. Paste an email and get results in under a second.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">✔</div>
+        <div class="why-text">
+          <h4>Real-Time Analysis</h4>
+          <p>Instant threat reports — no waiting. Scan emails as they arrive, before you click any links.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">✔</div>
+        <div class="why-text">
+          <h4>Explainable Results</h4>
+          <p>Every verdict shows exactly why — which words, links, or headers triggered each detection flag.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">✔</div>
+        <div class="why-text">
+          <h4>Designed for Everyday Users</h4>
+          <p>No cybersecurity background needed. Clear language, clear visuals, clear next steps.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">✔</div>
+        <div class="why-text">
+          <h4>Open Source & Transparent</h4>
+          <p>Our detection logic is auditable. No hidden scoring, no black boxes — trust through transparency.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ STATS ══════════════ -->
+<section id="stats" class="dark-section" style="padding:0;">
+  <div class="stats-grid">
+    <div class="stat-block reveal">
+      <span class="stat-icon">⚠️</span>
+      <span class="stat-num">3.4B</span>
+      <p class="stat-desc">Phishing emails are sent every single day — making it the world's most common cyberattack vector.</p>
+    </div>
+    <div class="stat-block reveal" style="transition-delay:0.15s;">
+      <span class="stat-icon">🔓</span>
+      <span class="stat-num">90%</span>
+      <p class="stat-desc">Of all successful data breaches begin with a phishing email — making email security your most critical defense layer.</p>
+    </div>
+    <div class="stat-block reveal" style="transition-delay:0.3s;">
+      <span class="stat-icon">🛡</span>
+      <span class="stat-num">94%</span>
+      <p class="stat-desc">AI-powered detection accuracy achieved by PhishScan, dramatically reducing the risk of successful phishing attacks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="sec-label reveal">Get Protected Now</div>
+    <h2 class="cta-h reveal">🚀 Start Protecting Your<br/><span>Emails Today</span></h2>
+    <p class="cta-sub reveal">Free. Instant. No account required. Scan your first suspicious email in under 30 seconds.</p>
+    <div class="cta-btns reveal">
+      <a href="phishing-detector-hackathon.html">
+        <button class="cta-btn-main">🔍 Try PhishScan Free</button>
+      </a>
+      <button class="cta-btn-sec" onclick="document.getElementById('awareness').scrollIntoView({behavior:'smooth'})">
+        📚 Learn Cyber Security
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="fb-logo"><div class="shield">🛡</div> Cyber Defense Hub</div>
+      <p>AI-powered cybersecurity tools and awareness resources for everyone — from individuals to organizations.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <a href="phishing-detector-hackathon.html">PhishScan AI</a>
+      <a href="#">URL Scanner</a>
+      <a href="#">Password Audit</a>
+      <a href="#">Header Analyzer</a>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <a href="#about">About</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#awareness">Learn</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Legal & Social</h5>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Cyber Defense Hub — All rights reserved</p>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Scroll Reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Hero Particles ──
+const container = document.getElementById('particles');
+for (let i = 0; i < 24; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.cssText = `
+    left: ${Math.random() * 100}%;
+    bottom: ${Math.random() * 20}%;
+    animation-duration: ${8 + Math.random() * 12}s;
+    animation-delay: ${Math.random() * 10}s;
+    width: ${2 + Math.random() * 4}px;
+    height: ${2 + Math.random() * 4}px;
+    opacity: ${0.2 + Math.random() * 0.5};
+  `;
+  container.appendChild(p);
+}
+
+// ── Navbar scroll effect ──
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 40) {
+    nav.style.borderBottomColor = 'rgba(0,212,255,0.1)';
+  } else {
+    nav.style.borderBottomColor = 'var(--border-d)';
+  }
+});
+</script>
+</body>
+</html>

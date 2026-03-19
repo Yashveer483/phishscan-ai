@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Phishing Attacks — Cyber Defense Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="phishingAttackStyle.css">
+<script src="phishingAttackScript.js" defer></script>
+</head>
+<body>
+
+<!-- ── READING PROGRESS ── -->
+<div class="reading-progress"><div class="reading-bar" id="readingBar"></div></div>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav>
+  <a href="cyber-defense-hub.html" class="nav-logo">
+    <div class="shield">🛡</div>
+    Cyber Defense Hub
+  </a>
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <span>Tools</span>
+      <div class="dropdown-menu">
+        <a href="phishing-detector-hackathon.html" class="dropdown-item">
+          <div class="di-icon">🎣</div>
+          <div>
+            <div class="di-name">PhishScan AI <span class="nav-badge">NEW</span></div>
+            <div class="di-desc">Email Threat Detector & Analyzer</div>
+          </div>
+        </a>
+        <div class="dropdown-item" style="opacity:0.45;cursor:default;">
+          <div class="di-icon">🔗</div>
+          <div>
+            <div class="di-name">URL Scanner <span class="nav-badge" style="background:#333;color:#666">SOON</span></div>
+            <div class="di-desc">Malicious link detection</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="cyber-defense-hub.html#about">About</a>
+    <a href="cyber-defense-hub.html#awareness">Learn</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-login">Login</button>
+    <button class="btn-signup">Sign Up Free</button>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="guide-hero">
+  <div class="guide-hero-grid"></div>
+  <div class="guide-hero-inner">
+    <div class="breadcrumb">
+      <a href="cyber-defense-hub.html">Home</a>
+      <span>›</span>
+      <a href="cyber-defense-hub.html#awareness">Learn</a>
+      <span>›</span>
+      <span style="color: var(--text);">Phishing Attacks</span>
+    </div>
+    <div class="guide-kicker">Threat Level: Critical</div>
+    <h1 class="guide-title">
+      🎣 Understanding<br/>
+      <span class="red">Phishing Attacks</span>
+    </h1>
+    <p class="guide-desc">
+      Phishing is the world's most common cyberattack. Learn exactly how attackers craft deceptive emails, recognize the warning signs before you click, and protect yourself with proven techniques.
+    </p>
+    <div class="guide-meta">
+      <div class="meta-tag"><div class="dot"></div> 12 min read</div>
+      <div class="meta-tag danger"><div class="dot"></div> Critical Threat Level</div>
+      <div class="meta-tag warn"><div class="dot"></div> Updated March 2026</div>
+      <div class="meta-tag"><div class="dot"></div> Beginner Friendly</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MAIN LAYOUT ══════════════ -->
+<div class="guide-layout">
+
+  <!-- ── TOC SIDEBAR ── -->
+  <aside>
+    <div class="toc">
+      <div class="toc-title">Table of Contents</div>
+      <ul class="toc-list">
+        <li><a href="#what-is" class="active"><span class="toc-num">01</span> What Is Phishing?</a></li>
+        <li><a href="#why-it-works"><span class="toc-num">02</span> Why It Works</a></li>
+        <li><a href="#types"><span class="toc-num">03</span> Types of Phishing</a></li>
+        <li><a href="#anatomy"><span class="toc-num">04</span> Anatomy of an Attack</a></li>
+        <li><a href="#red-flags"><span class="toc-num">05</span> Red Flags to Spot</a></li>
+        <li><a href="#real-example"><span class="toc-num">06</span> Real Email Example</a></li>
+        <li><a href="#protect"><span class="toc-num">07</span> How to Protect Yourself</a></li>
+        <li><a href="#quiz"><span class="toc-num">08</span> Test Your Knowledge</a></li>
+      </ul>
+      <div class="toc-divider"></div>
+      <div class="try-tool-card">
+        <p>Think you received a phishing email? Scan it instantly with our AI detector.</p>
+        <a href="phishing-detector-hackathon.html">
+          <button class="try-btn">🔍 Try PhishScan AI</button>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── ARTICLE ── -->
+  <article class="guide-content">
+
+    <!-- SECTION 1: WHAT IS PHISHING -->
+    <div class="guide-section" id="what-is">
+      <div class="section-header">
+        <div class="section-icon">🎣</div>
+        <div>
+          <span class="section-num">Section 01</span>
+          <h2 class="section-title">What Is <span class="c">Phishing?</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">
+        <strong>Phishing</strong> is a type of cyberattack where criminals impersonate trusted entities — banks, tech companies, government agencies, or even your colleagues — to trick you into revealing sensitive information such as passwords, credit card numbers, or personal data.
+      </p>
+      <p class="guide-p">
+        The term "phishing" comes from the idea of <strong>fishing for victims</strong> using a baited hook. Attackers cast their net wide, sending millions of deceptive emails hoping that even a small fraction of recipients will take the bait.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <span class="s-num">3.4B</span>
+          <span class="s-label">Phishing emails sent every single day</span>
+        </div>
+        <div class="stat-item">
+          <span class="s-num">90%</span>
+          <span class="s-label">Of data breaches start with phishing</span>
+        </div>
+        <div class="stat-item">
+          <span class="s-num">$17,700</span>
+          <span class="s-label">Lost per minute to phishing attacks globally</span>
+        </div>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-icon">🚨</div>
+        <div class="callout-body">
+          <div class="cb-title">Why This Matters to You</div>
+          <p>You don't need to be a celebrity or corporation to be targeted. Most phishing attacks are automated and target anyone with an email address. One successful attack can result in identity theft, financial loss, or account takeovers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: WHY IT WORKS -->
+    <div class="guide-section" id="why-it-works">
+      <div class="section-header">
+        <div class="section-icon">🧠</div>
+        <div>
+          <span class="section-num">Section 02</span>
+          <h2 class="section-title">Why Phishing <span class="c">Works</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">
+        Phishing is so effective not because it exploits software vulnerabilities — it exploits <strong>human psychology</strong>. Attackers are experts at manufacturing urgency, fear, and trust.
+      </p>
+
+      <div class="cards-grid">
+        <div class="info-card">
+          <span class="ic-icon">⚡</span>
+          <div class="ic-title">Urgency & Fear</div>
+          <p class="ic-desc">"Your account will be suspended in 24 hours!" — panic short-circuits critical thinking. You act before you think.</p>
+        </div>
+        <div class="info-card">
+          <span class="ic-icon">🏢</span>
+          <div class="ic-title">Authority Impersonation</div>
+          <p class="ic-desc">Attackers clone logos, email styles, and language from brands you trust — Google, PayPal, your bank, your boss.</p>
+        </div>
+        <div class="info-card">
+          <span class="ic-icon">🎁</span>
+          <div class="ic-title">Tempting Rewards</div>
+          <p class="ic-desc">"You've won a $500 gift card!" — greed is as powerful as fear. Offers seem too good to pass up.</p>
+        </div>
+        <div class="info-card">
+          <span class="ic-icon">🔏</span>
+          <div class="ic-title">False Security</div>
+          <p class="ic-desc">Fake padlock icons, "secure" wording, and HTTPS links create a false sense of legitimacy and safety.</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="cb-title">The Golden Rule</div>
+          <p>Legitimate organizations will <strong>never</strong> ask for your password, full credit card number, or one-time codes via email. If an email requests these, it is a scam — no exceptions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: TYPES -->
+    <div class="guide-section" id="types">
+      <div class="section-header">
+        <div class="section-icon">🗂</div>
+        <div>
+          <span class="section-num">Section 03</span>
+          <h2 class="section-title">Types of <span class="c">Phishing Attacks</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">Phishing has evolved far beyond generic spam emails. Modern attacks are targeted, personalized, and delivered through multiple channels.</p>
+
+      <div class="type-card">
+        <div class="type-icon">📧</div>
+        <div class="type-content">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+            <h4>Email Phishing</h4>
+            <span class="type-badge high">HIGH</span>
+          </div>
+          <p>The classic attack — mass emails impersonating trusted brands sent to millions of addresses. Even if only 0.1% respond, it's profitable.</p>
+          <div class="example"><strong>Example:</strong> "Your PayPal account has been limited. Click here to restore access." — sent from paypa1-support@secure-login.net</div>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <div class="type-icon">🎯</div>
+        <div class="type-content">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+            <h4>Spear Phishing</h4>
+            <span class="type-badge critical">CRITICAL</span>
+          </div>
+          <p>Highly targeted attacks on specific individuals. Attackers research their victim on LinkedIn, social media, and company websites to craft personalized, convincing messages.</p>
+          <div class="example"><strong>Example:</strong> "Hi Sarah, as discussed in yesterday's meeting, please review and sign the attached NDA." — sent impersonating your actual CEO using their real name and signature.</div>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <div class="type-icon">🐳</div>
+        <div class="type-content">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+            <h4>Whaling</h4>
+            <span class="type-badge critical">CRITICAL</span>
+          </div>
+          <p>Spear phishing targeting senior executives (CEOs, CFOs) — "big fish." One successful whaling attack can transfer millions in company funds.</p>
+          <div class="example"><strong>Example:</strong> Fake email to a CFO from "legal counsel" instructing an urgent wire transfer for a confidential acquisition deal.</div>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <div class="type-icon">📱</div>
+        <div class="type-content">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+            <h4>Smishing & Vishing</h4>
+            <span class="type-badge high">HIGH</span>
+          </div>
+          <p>SMS-based phishing (smishing) and voice call phishing (vishing). People trust texts and phone calls more than emails, making these extremely effective.</p>
+          <div class="example"><strong>Example:</strong> "ALERT: Your bank account has been compromised. Call 1-800-XXX-XXXX immediately." — the number connects to a scammer posing as bank security.</div>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <div class="type-icon">🔍</div>
+        <div class="type-content">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+            <h4>Search Engine Phishing</h4>
+            <span class="type-badge med">MEDIUM</span>
+          </div>
+          <p>Fake websites that rank in search results for common queries like "PayPal login" or "bank online banking". Users click what looks like an official result and land on a credential-stealing clone.</p>
+          <div class="example"><strong>Example:</strong> Searching "Netflix login" and clicking an ad that leads to netflix-account-secure.com — a perfect visual clone of the real site.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: ANATOMY -->
+    <div class="guide-section" id="anatomy">
+      <div class="section-header">
+        <div class="section-icon">🔬</div>
+        <div>
+          <span class="section-num">Section 04</span>
+          <h2 class="section-title">Anatomy of a <span class="c">Phishing Attack</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">Understanding the step-by-step playbook attackers use helps you anticipate and recognize attacks before you're compromised.</p>
+
+      <div class="steps-list">
+        <div class="step-row">
+          <div class="step-n">1</div>
+          <div class="step-body">
+            <h4>Reconnaissance</h4>
+            <p>The attacker researches their target — browsing LinkedIn for job titles, checking company websites for email formats, and mining social media for personal details to make the attack convincing.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-n">2</div>
+          <div class="step-body">
+            <h4>Infrastructure Setup</h4>
+            <p>They register lookalike domains (paypa1.com, googIe.com), clone the target brand's website pixel-for-pixel, and set up fake email addresses to pass basic spam filters.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-n">3</div>
+          <div class="step-body">
+            <h4>Crafting the Lure</h4>
+            <p>The email is designed to trigger an emotional response — urgency ("your account expires in 2 hours"), fear ("suspicious login detected"), or greed ("you have a pending refund").</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-n">4</div>
+          <div class="step-body">
+            <h4>Delivery</h4>
+            <p>Emails are sent in bulk or targeted delivery, often timed for Monday mornings or Friday afternoons when people are distracted. Attachments may contain malware; links redirect to fake login pages.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-n">5</div>
+          <div class="step-body">
+            <h4>Credential Harvesting</h4>
+            <p>When you enter credentials on the fake page, they're captured instantly. Some attackers show a "login failed" message to prompt a second attempt, then redirect to the real site — you never suspect anything went wrong.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-n">6</div>
+          <div class="step-body">
+            <h4>Exploitation</h4>
+            <p>Stolen credentials are immediately used to access accounts, transferred, or sold on the dark web. Attackers may also persist silently in inboxes — forwarding emails, studying financial conversations, then striking at the perfect moment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: RED FLAGS -->
+    <div class="guide-section" id="red-flags">
+      <div class="section-header">
+        <div class="section-icon">🚩</div>
+        <div>
+          <span class="section-num">Section 05</span>
+          <h2 class="section-title">Red Flags to <span class="c">Spot Instantly</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">Train your eye to spot these warning signs. No single flag is definitive, but multiple flags together almost always indicate a phishing attempt.</p>
+
+      <div class="flags-list">
+        <div class="flag-item">
+          <div class="flag-icon">🔤</div>
+          <div class="flag-text"><strong>Mismatched or lookalike sender domain</strong> — The display name says "PayPal Support" but the actual email is from paypa1-secure@login-verify.net. Always expand and check the full email address.</div>
+        </div>
+        <div class="flag-item">
+          <div class="flag-icon">⚡</div>
+          <div class="flag-text"><strong>Extreme urgency or threats</strong> — "Act now or your account will be permanently deleted in 24 hours!" Real companies don't threaten you with immediate account deletion via cold email.</div>
+        </div>
+        <div class="flag-item">
+          <div class="flag-icon">🔗</div>
+          <div class="flag-text"><strong>Suspicious links that don't match</strong> — Hover over links (don't click) to see the real destination URL. If the visible text says "paypal.com" but the URL shows "paypa1-secure.xyz/login", it's fake.</div>
+        </div>
+        <div class="flag-item">
+          <div class="flag-icon">📎</div>
+          <div class="flag-text"><strong>Unexpected attachments</strong> — Unsolicited attachments — especially .exe, .zip, .docm files or PDFs you didn't request — are a major red flag. They may contain malware that installs silently.</div>
+        </div>
+        <div class="flag-item">
+          <div class="flag-icon">👋</div>
+          <div class="flag-text"><strong>Generic greetings</strong> — "Dear Customer" or "Dear User" instead of your actual name. Legitimate services you have accounts with know your name and use it.</div>
+        </div>
+        <div class="flag-item">
+          <div class="flag-icon">✍️</div>
+          <div class="flag-text"><strong>Grammar and spelling errors</strong> — Phishing emails often contain awkward phrasing, odd punctuation, or spelling mistakes. Professional companies proofread their communications.</div>
+        </div>
+        <div class="flag-item">
+          <div class="flag-icon">🔑</div>
+          <div class="flag-text"><strong>Requests for sensitive information</strong> — Any email asking for your password, full credit card number, Social Security number, or bank details is a scam. No exceptions.</div>
+        </div>
+        <div class="flag-item">
+          <div class="flag-icon">🎁</div>
+          <div class="flag-text"><strong>Too-good-to-be-true offers</strong> — "You've been selected for a free iPhone!" or "Claim your $1,000 reward now!" If you didn't enter a contest, you didn't win anything.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: REAL EXAMPLE -->
+    <div class="guide-section" id="real-example">
+      <div class="section-header">
+        <div class="section-icon">🔍</div>
+        <div>
+          <span class="section-num">Section 06</span>
+          <h2 class="section-title">Dissecting a <span class="c">Real Phishing Email</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">Let's analyze a typical phishing email. Hover over the annotated flags to understand exactly what makes this dangerous.</p>
+
+      <div class="fake-email">
+        <div class="fe-bar">
+          <div class="fe-dot r"></div><div class="fe-dot y"></div><div class="fe-dot g"></div>
+          <span class="fe-client">📧 Mail — Inbox</span>
+        </div>
+        <div class="fe-header">
+          <div class="fe-field">
+            <span class="fe-label">From:</span>
+            <span class="fe-val">
+              PayPal Support &lt;<span class="fe-warn">support@paypa1-secure-login.com</span>&gt;
+              <span class="annotation">⚠ LOOKALIKE DOMAIN</span>
+            </span>
+          </div>
+          <div class="fe-field">
+            <span class="fe-label">To:</span>
+            <span class="fe-val">you@youremail.com</span>
+          </div>
+          <div class="fe-field">
+            <span class="fe-label">Subject:</span>
+            <span class="fe-val">
+              <span class="fe-warn">⚠ ACTION REQUIRED:</span> Your PayPal account has been limited
+              <span class="annotation">⚠ URGENCY</span>
+            </span>
+          </div>
+        </div>
+        <div class="fe-body">
+          <p>Dear Customer, <span class="annotation">⚠ GENERIC GREETING</span></p>
+          <p>We have noticed <span class="fe-warn">suspicious activity</span> on your PayPal account. To protect your funds, we have temporarily <span class="fe-warn">limited your account access</span>.</p>
+          <p>You must verify your identity within <span class="fe-warn">24 hours</span> or your account will be <span class="fe-warn">permanently suspended</span> and any pending payments will be cancelled. <span class="annotation">⚠ FALSE URGENCY + THREAT</span></p>
+          <p>Click the button below to verify your account:</p>
+          <div class="fe-btn">Verify My Account Now →</div>
+          <span class="annotation">⚠ LINK GOES TO FAKE SITE</span>
+          <br/><br/>
+          <p style="font-size:12px; color:#999;">Link destination: <span class="fe-link">http://paypa1-secure-login.com/verify?ref=83921</span> <span class="annotation">⚠ NOT PAYPAL.COM</span></p>
+          <p style="font-size:12px; color:#aaa; margin-top:16px;">If you did not initiate this request, please ignore this email.<br/>PayPal Security Team</p>
+        </div>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-icon">🛑</div>
+        <div class="callout-body">
+          <div class="cb-title">This email contains 5 major red flags</div>
+          <p>Lookalike domain · Generic greeting · Artificial urgency · Threat of account loss · Link to non-PayPal domain. Any one of these is suspicious. All five together = definite phishing. <strong>Never click that link.</strong></p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-icon">🤖</div>
+        <div class="callout-body">
+          <div class="cb-title">Let PhishScan AI Analyze It For You</div>
+          <p>Not sure if an email is real or fake? Our PhishScan AI will automatically detect all red flags, score the risk 0–100, and explain exactly what makes it suspicious — in seconds.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: PROTECT -->
+    <div class="guide-section" id="protect">
+      <div class="section-header">
+        <div class="section-icon">🛡</div>
+        <div>
+          <span class="section-num">Section 07</span>
+          <h2 class="section-title">How to <span class="c">Protect Yourself</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">Defense against phishing is multi-layered. No single measure is enough — combine these practices for strong protection.</p>
+
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <div class="check-body">
+            <h4>Enable Multi-Factor Authentication (MFA) everywhere</h4>
+            <p>Even if attackers steal your password, MFA means they still can't access your account without your phone or authenticator app. Use an authenticator app (Google Authenticator, Authy) rather than SMS codes where possible.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <div class="check-body">
+            <h4>Always verify links before clicking</h4>
+            <p>Hover over any link to see the actual destination URL in your browser's status bar. If the real URL doesn't match the displayed text or isn't the brand's official domain, don't click. When in doubt, navigate directly by typing the URL yourself.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <div class="check-body">
+            <h4>Use a password manager</h4>
+            <p>Password managers auto-fill credentials only on legitimate websites. If you land on a phishing clone, the manager won't fill in your password — a built-in protection against credential theft.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <div class="check-body">
+            <h4>Verify unexpected requests through a separate channel</h4>
+            <p>If your "CEO" emails you asking for an urgent wire transfer, call them directly using a number you already have — not one provided in the email. This single habit stops most spear phishing and whaling attacks.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <div class="check-body">
+            <h4>Keep software and browsers updated</h4>
+            <p>Phishing sometimes leads to malware downloads. Updated browsers and OS block many known malicious sites and patch exploits that malicious attachments rely on.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <div class="check-body">
+            <h4>Use an AI-powered email scanner</h4>
+            <p>Tools like PhishScan AI analyze emails for lookalike domains, urgency patterns, suspicious links, and header anomalies — catching attacks that bypass traditional spam filters.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <div class="check-body">
+            <h4>Report phishing emails — don't just delete them</h4>
+            <p>Report phishing to your email provider (Gmail: "Report phishing", Outlook: "Report message") and forward to report@phishing.gov or the impersonated company's abuse team. This helps protect others.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 8: QUIZ -->
+    <div class="guide-section" id="quiz">
+      <div class="section-header">
+        <div class="section-icon">🧪</div>
+        <div>
+          <span class="section-num">Section 08</span>
+          <h2 class="section-title">Test Your <span class="c">Knowledge</span></h2>
+        </div>
+      </div>
+
+      <p class="guide-p">Quick check — can you identify a phishing attempt? Click the answer you think is correct.</p>
+
+      <!-- Q1 -->
+      <div class="quiz-card">
+        <div class="quiz-q">❓ You receive an email from "Amazon" saying your account will be suspended in 2 hours. The email address is <code style="color:var(--red);">support@amazon-secure-verify.net</code>. What should you do?</div>
+        <div class="quiz-options" id="q1">
+          <div class="quiz-opt" onclick="answer('q1', this, false, 'Clicking the link takes you to a credential-stealing fake site designed to look exactly like Amazon.')">
+            <div class="opt-letter">A</div>Click the link to verify your account quickly
+          </div>
+          <div class="quiz-opt" onclick="answer('q1', this, true, 'Correct! The domain amazon-secure-verify.net is NOT amazon.com — this is a textbook lookalike domain phishing attack.')">
+            <div class="opt-letter">B</div>Ignore it — the sender domain doesn\'t match amazon.com
+          </div>
+          <div class="quiz-opt" onclick="answer('q1', this, false, 'Replying confirms your email is active and may prompt more attacks. Also, the attacker sees your response.')">
+            <div class="opt-letter">C</div>Reply to ask if it\'s real
+          </div>
+          <div class="quiz-opt" onclick="answer('q1', this, false, 'Forwarding can spread malware if there are malicious attachments, and friends might fall for it.')">
+            <div class="opt-letter">D</div>Forward it to a friend to check
+          </div>
+        </div>
+        <div class="quiz-feedback" id="q1-fb"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-card" style="margin-top:14px;">
+        <div class="quiz-q">❓ Which of the following is the MOST reliable sign that an email is phishing?</div>
+        <div class="quiz-options" id="q2">
+          <div class="quiz-opt" onclick="answer('q2', this, false, 'Grammar errors are suspicious, but sophisticated attackers now use AI to write perfect prose. Don\'t rely on this alone.')">
+            <div class="opt-letter">A</div>The email has grammar mistakes
+          </div>
+          <div class="quiz-opt" onclick="answer('q2', this, false, 'The subject line content alone isn\'t reliable — attackers craft convincing subjects that match real communications.')">
+            <div class="opt-letter">B</div>The subject line sounds suspicious
+          </div>
+          <div class="quiz-opt" onclick="answer('q2', this, true, 'Correct! The sender\'s actual email domain is the most reliable indicator. Real companies always send from their own official domain.')">
+            <div class="opt-letter">C</div>The sender\'s email domain doesn\'t match the company it claims to be from
+          </div>
+          <div class="quiz-opt" onclick="answer('q2', this, false, 'Legitimate emails often include attachments — invoices, contracts, reports. An attachment alone doesn\'t mean phishing.')">
+            <div class="opt-letter">D</div>The email has an attachment
+          </div>
+        </div>
+        <div class="quiz-feedback" id="q2-fb"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-card" style="margin-top:14px;">
+        <div class="quiz-q">❓ Your company's CEO emails you asking you to urgently buy $500 in gift cards and send the codes. What is this attack called?</div>
+        <div class="quiz-options" id="q3">
+          <div class="quiz-opt" onclick="answer('q3', this, false, 'Email phishing is mass, untargeted. This is a highly targeted attack on a specific person at a specific company.')">
+            <div class="opt-letter">A</div>Email Phishing
+          </div>
+          <div class="quiz-opt" onclick="answer('q3', this, false, 'Smishing uses SMS text messages, not email.')">
+            <div class="opt-letter">B</div>Smishing
+          </div>
+          <div class="quiz-opt" onclick="answer('q3', this, false, 'Whaling targets the executives themselves (the "big fish"), not employees below them.')">
+            <div class="opt-letter">C</div>Whaling
+          </div>
+          <div class="quiz-opt" onclick="answer('q3', this, true, 'Correct! This is Spear Phishing — a targeted attack impersonating your CEO. Gift card scams are a classic spear phishing tactic used against employees.')">
+            <div class="opt-letter">D</div>Spear Phishing
+          </div>
+        </div>
+        <div class="quiz-feedback" id="q3-fb"></div>
+      </div>
+    </div>
+
+    <!-- NEXT ARTICLES -->
+    <div class="guide-section" style="margin-bottom: 20px;">
+      <div style="border-top: 1px solid var(--border); padding-top: 40px;">
+        <div class="sec-label" style="font-family:var(--orb); font-size:10px; color:var(--cyan); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:16px;">Continue Learning</div>
+        <h3 style="font-family:var(--orb); font-size:20px; color:#fff; margin-bottom:6px;">Explore More <span style="color:var(--cyan)">Cyber Guides</span></h3>
+        <p style="font-size:14px; color:var(--muted); margin-bottom:24px;">Build your full cybersecurity knowledge — one guide at a time.</p>
+        <div class="next-cards">
+          <div class="next-card">
+            <span class="nc-icon">🔑</span>
+            <div class="nc-title">Password Security</div>
+            <p class="nc-desc">Why strong, unique passwords and managers are your first real defense layer.</p>
+            <div class="nc-read">Read Guide →</div>
+          </div>
+          <div class="next-card">
+            <span class="nc-icon">🎭</span>
+            <div class="nc-title">Social Engineering</div>
+            <p class="nc-desc">Attackers manipulate people, not just systems. Recognize the tactics.</p>
+            <div class="nc-read">Read Guide →</div>
+          </div>
+          <div class="next-card">
+            <span class="nc-icon">🌐</span>
+            <div class="nc-title">Safe Browsing</div>
+            <p class="nc-desc">Identify malicious URLs and browser-based attacks before they hit.</p>
+            <div class="nc-read">Read Guide →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+</div>
+</body>
+</html>
