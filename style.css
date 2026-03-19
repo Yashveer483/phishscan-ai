@@ -1,7 +1,4 @@
 
-/* ═══════════════════════════════════════════════
-   ROOT & RESET
-═══════════════════════════════════════════════ */
 :root {
   --blue-light: #e8f4ff;
   --blue-mid:   #b8deff;
@@ -32,9 +29,7 @@ body { font-family: var(--body); overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
-/* ═══════════════════════════════════════════════
-   NAVBAR
-═══════════════════════════════════════════════ */
+/* Navbar */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   background: rgba(8,12,20,0.85);
@@ -128,9 +123,7 @@ nav {
 }
 .btn-signup:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,212,255,0.45); }
 
-/* ═══════════════════════════════════════════════
-   HERO — BLUE LIGHT BACKGROUND
-═══════════════════════════════════════════════ */
+/* Backgrounf */
 #hero {
   min-height: 100vh;
   position: relative;
