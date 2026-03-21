@@ -22,6 +22,8 @@ for (let i = 0; i < 24; i++) {
   container.appendChild(p);
 }
 
+
+
 // ── Navbar scroll effect ──
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');

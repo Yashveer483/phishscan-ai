@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Yashveer483/phishscan-ai/refs/heads/main/Project%20Zero%20Trust.png">
+    <title>Login — ProjectZeroTrust</title>
+
+    <!-- Firebase v8 compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0edf7;
+        }
+
+        .card {
+            width: 900px;
+            min-height: 520px;
+            display: flex;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #f4f4f4;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* ── LEFT PANEL ── */
+        .left {
+            width: 55%;
+            padding: 30px 36px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+        .navbar h2 { color: #5a0ca3; font-weight: bold; font-size: 18px; }
+        .navbar ul { display: flex; list-style: none; gap: 20px; }
+        .navbar ul li a {
+            text-decoration: none; color: #555; font-size: 13px;
+            transition: color 0.2s;
+        }
+        .navbar ul li a:hover { color: #5a0ca3; font-weight: bold; }
+
+        h1 { text-align: center; color: #5a0ca3; margin-bottom: 20px; font-size: 26px; }
+
+        .field-label {
+            font-size: 13px; color: #444;
+            margin-bottom: 4px; margin-top: 14px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: #5a0ca3; }
+
+        .remember-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 14px;
+        }
+        .remember-row a {
+            color: #5a0ca3; text-decoration: none;
+        }
+        .remember-row a:hover { text-decoration: underline; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #5a0ca3;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 18px;
+            transition: background 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .submit-btn:hover { background: #7b1fd1; }
+        .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+        /* Google button */
+        .google-btn {
+            width: 100%;
+            padding: 11px;
+            background: #fff;
+            color: #444;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .google-btn:hover { border-color: #5a0ca3; box-shadow: 0 2px 8px rgba(90,12,163,0.1); }
+
+        .divider {
+            display: flex; align-items: center; gap: 10px;
+            margin: 14px 0 4px;
+            color: #bbb; font-size: 12px;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #555;
+        }
+        .switch-link a { color: #5a0ca3; text-decoration: none; font-weight: 600; }
+        .switch-link a:hover { text-decoration: underline; }
+
+        /* ── MESSAGES ── */
+        .msg {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+        .msg.error   { background: #fdecea; color: #c0392b; border: 1px solid #f5c6cb; }
+        .msg.success { background: #e8f8f0; color: #1a7a4a; border: 1px solid #b7e4c7; }
+        .msg.show    { display: block; }
+
+        /* Spinner */
+        .spinner {
+            width: 16px; height: 16px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── RIGHT PANEL ── */
+        .right {
+            width: 45%;
+            background:
+                linear-gradient(rgba(90,12,163,0.65), rgba(142,45,226,0.65)),
+                url('https://github.com/Yashveer483/phishscan-ai/blob/main/Project%20Zero%20Trust.png?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+            color: #fff;
+            text-align: center;
+        }
+        .right h3 { font-size: 22px; margin-bottom: 10px; }
+        .right p  { font-size: 14px; opacity: 0.85; line-height: 1.7; }
+        .shield-icon { font-size: 52px; margin-bottom: 18px; }
+        .welcome-back {
+            background: rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            font-size: 13px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <!-- LEFT -->
+    <div class="left">
+        <div class="navbar">
+            <h2>Zero Trust</h2>
+            <ul>
+                <li><a href="cyber-defense-hub.html">HOME</a></li>
+                <li><a href="cyber-defense-hub.html#about">ABOUT US</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+        </div>
+
+        <h1>Log In</h1>
+
+        <div id="msg-box" class="msg"></div>
+
+        <form id="loginForm" autocomplete="off">
+
+            <div class="field-label">Email Address</div>
+            <input type="email" id="email" placeholder="✉️  Your email" required/>
+
+            <div class="field-label">Password</div>
+            <input type="password" id="password" placeholder="🔒  Your password" required/>
+
+            <div class="remember-row">
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <input type="checkbox" id="rememberMe"> Remember Me
+                </label>
+                <a href="#" id="forgotLink">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="submit-btn" id="loginBtn">
+                <div class="spinner" id="spinner"></div>
+                <span id="btnText">Log In</span>
+            </button>
+
+        </form>
+
+        <div class="divider">or</div>
+
+        <!-- Google Sign In -->
+        <button class="google-btn" id="googleBtn">
+            <svg width="18" height="18" viewBox="0 0 48 48">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+            Continue with Google
+        </button>
+
+        <div class="switch-link">
+            Don't have an account? <a href="signup.html">Sign up</a>
+        </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right"></div>
+
+</div>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBrGyAJk_98OKHD6I9siyEKUsawhQ1j5TM",
+  authDomain: "project-zero-trust-fb5eb.firebaseapp.com",
+  projectId: "project-zero-trust-fb5eb",
+  storageBucket: "project-zero-trust-fb5eb.firebasestorage.app",
+  messagingSenderId: "1069009618491",
+  appId: "1:1069009618491:web:8190b6bef35b282e7f3e1e",
+  measurementId: "G-0ZGZ909TPW"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db   = firebase.firestore();
+
+// ── UI helpers ──
+const msgBox    = document.getElementById('msg-box');
+const spinner   = document.getElementById('spinner');
+const btnText   = document.getElementById('btnText');
+const loginBtn  = document.getElementById('loginBtn');
+
+function showMsg(text, type) {
+    msgBox.textContent = text;
+    msgBox.className = `msg ${type} show`;
+}
+
+function setLoading(on) {
+    spinner.style.display = on ? 'block' : 'none';
+    btnText.textContent   = on ? 'Logging in...' : 'Log In';
+    loginBtn.disabled     = on;
+}
+
+// ── Email + Password login ──
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const remember = document.getElementById('rememberMe').checked;
+
+    setLoading(true);
+
+    try {
+        // Set persistence based on "Remember Me"
+        const persistence = remember
+            ? firebase.auth.Auth.Persistence.LOCAL
+            : firebase.auth.Auth.Persistence.SESSION;
+
+        await auth.setPersistence(persistence);
+
+        // Sign in
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        showMsg(`Welcome back, ${user.displayName || 'User'}! Redirecting...`, 'success');
+
+        setTimeout(() => {
+            window.location.href = '/index.html';
+        }, 1200);
+
+    } catch (error) {
+        setLoading(false);
+
+        const errors = {
+            'auth/user-not-found':         'No account found with this email. Please sign up.',
+            'auth/wrong-password':         'Incorrect password. Please try again.',
+            'auth/invalid-email':          'Please enter a valid email address.',
+            'auth/too-many-requests':      'Too many failed attempts. Please wait and try again.',
+            'auth/user-disabled':          'This account has been disabled.',
+            'auth/network-request-failed': 'Network error. Check your connection.'
+        };
+        showMsg(errors[error.code] || `Error: ${error.message}`, 'error');
+    }
+});
+
+// ── Google Sign In ──
+document.getElementById('googleBtn').addEventListener('click', async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+        const result = await auth.signInWithPopup(provider);
+        const user   = result.user;
+        const isNew  = result.additionalUserInfo.isNewUser;
+
+        // If new user via Google, save to Firestore
+        if (isNew) {
+            const nameParts = (user.displayName || '').split(' ');
+            await db.collection('users').doc(user.uid).set({
+                firstName:   nameParts[0] || '',
+                lastName:    nameParts.slice(1).join(' ') || '',
+                email:       user.email,
+                displayName: user.displayName || '',
+                photoURL:    user.photoURL || '',
+                createdAt:   firebase.firestore.FieldValue.serverTimestamp(),
+                role:        'user',
+                provider:    'google'
+            });
+        }
+
+        showMsg(`Welcome, ${user.displayName || 'User'}! Redirecting...`, 'success');
+
+        setTimeout(() => {
+            window.location.href = '/index.html';
+        }, 1200);
+
+    } catch (error) {
+        const errors = {
+            'auth/popup-closed-by-user':   'Sign-in popup was closed. Please try again.',
+            'auth/popup-blocked':          'Popup blocked. Please allow popups and try again.',
+            'auth/network-request-failed': 'Network error. Check your connection.'
+        };
+        showMsg(errors[error.code] || `Google sign-in error: ${error.message}`, 'error');
+    }
+});
+
+// ── Forgot Password ──
+document.getElementById('forgotLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+
+    if (!email) {
+        return showMsg('Enter your email address above, then click Forgot Password.', 'error');
+    }
+
+    try {
+        await auth.sendPasswordResetEmail(email);
+        showMsg(`Password reset email sent to ${email}. Check your inbox.`, 'success');
+    } catch (error) {
+        const errors = {
+            'auth/user-not-found': 'No account found with this email.',
+            'auth/invalid-email':  'Please enter a valid email address.'
+        };
+        showMsg(errors[error.code] || error.message, 'error');
+    }
+});
+</script>
+</body>
+</html>

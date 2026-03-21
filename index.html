@@ -46,8 +46,8 @@
     <a href="#awareness">Learn</a>
   </div>
   <div class="nav-right">
-    <button class="btn-login">Login</button>
-    <button class="btn-signup">Sign Up Free</button>
+    <button class="btn-login"><a href="login.html">Login</a></button>
+    <button class="btn-signup"><a href="signup.html">Sign Up Free</a></button>
   </div>
 </nav>
 
@@ -394,7 +394,7 @@
     <h2 class="cta-h reveal">🚀 Start Protecting Your<br/><span>Emails Today</span></h2>
     <p class="cta-sub reveal">Free. Instant. No account required. Scan your first suspicious email in under 30 seconds.</p>
     <div class="cta-btns reveal">
-      <a href="phishing-detector-hackathon.html">
+      <a href="https://phishscan-ai-4mpcusz7thepqtvh73nkqh.streamlit.app">
         <button class="cta-btn-main">🔍 Try PhishScan Free</button>
       </a>
       <button class="cta-btn-sec" onclick="document.getElementById('awareness').scrollIntoView({behavior:'smooth'})">
@@ -478,4 +478,78 @@ window.addEventListener('scroll', () => {
 });
 </script>
 </body>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script>
+// Same Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyBrGyAJk_98OKHD6I9siyEKUsawhQ1j5TM",
+  authDomain: "project-zero-trust-fb5eb.firebaseapp.com",
+  projectId: "project-zero-trust-fb5eb",
+  storageBucket: "project-zero-trust-fb5eb.firebasestorage.app",
+  messagingSenderId: "1069009618491",
+  appId: "1:1069009618491:web:8190b6bef35b282e7f3e1e"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Watch login state
+auth.onAuthStateChanged((user) => {
+  const loginBtn  = document.querySelector('.btn-login');
+  const signupBtn = document.querySelector('.btn-signup');
+
+  if (user) {
+    // User is logged in — replace buttons with name + logout
+    if (loginBtn)  loginBtn.style.display  = 'none';
+    if (signupBtn) signupBtn.style.display = 'none';
+
+    // Create user info in navbar
+    const nav = document.querySelector('.nav-right');
+    if (nav && !document.getElementById('user-info')) {
+      nav.innerHTML = `
+        <span id="user-info" style="
+          font-size: 14px;
+          color: rgba(255,255,255,0.85);
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        ">
+          👤 ${user.displayName || user.email}
+          <button onclick="logoutUser()" style="
+            font-size: 13px;
+            padding: 7px 16px;
+            border-radius: 7px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+          "
+          onmouseover="this.style.color='#fff'; this.style.borderColor='rgba(255,255,255,0.4)'"
+          onmouseout="this.style.color='rgba(255,255,255,0.7)'; this.style.borderColor='rgba(255,255,255,0.2)'"
+          >
+            Logout
+          </button>
+        </span>
+      `;
+    }
+  } else {
+    // User is NOT logged in — show login/signup buttons
+    if (loginBtn)  loginBtn.style.display  = '';
+    if (signupBtn) signupBtn.style.display = '';
+
+    const userInfo = document.getElementById('user-info');
+    if (userInfo) userInfo.remove();
+  }
+});
+
+function logoutUser() {
+  auth.signOut().then(() => {
+    window.location.href = '/login.html';
+  });
+}
+</script>
 </html>
