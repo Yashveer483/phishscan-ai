@@ -276,7 +276,7 @@ with tab2:
 st.divider()
 st.markdown(
     "<div style='text-align:center; font-size:12px; color:#2a3a55;'>"
-    "PhishScan AI — Cyber Defense Hub · Powered by DistilBERT + LIME + EasyOCR"
+    "Project Zero Trust presents PhishScan AI - Powered by DistilBERT · LIME · EasyOCR"
     "</div>",
     unsafe_allow_html=True
 )
