@@ -7,3 +7,5 @@ numpy
 datasets
 safetensors
 accelerate
+easyocr
+pillow

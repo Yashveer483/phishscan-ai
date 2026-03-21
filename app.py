@@ -1,4 +1,8 @@
 # app.py — Run with: streamlit run app.py
+
+from PIL import Image
+import easyocr
+import io
 import os
 import streamlit as st
 import torch
@@ -38,10 +42,16 @@ st.markdown("""
   h1 { color: #ffffff !important; }
   .stTextArea textarea { background: #0d1422 !important; color: #e2eeff !important; }
   .stTextInput input   { background: #0d1422 !important; color: #e2eeff !important; }
+  .ocr-box {
+    background: #0d1a2e; border: 1px solid #1e3a5a;
+    border-radius: 8px; padding: 14px 16px;
+    font-size: 13px; color: #8ab4d4;
+    margin: 10px 0; max-height: 160px; overflow-y: auto;
+  }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Load Model (cached) ──
+# ── Load BERT Model ──
 @st.cache_resource
 def load_model():
     model_path = "Yashveer30989/phishscan-model"
@@ -50,8 +60,15 @@ def load_model():
     mdl.eval()
     return tok, mdl
 
+# ── Load OCR Model ──
+@st.cache_resource
+def load_ocr():
+    reader = easyocr.Reader(['en'], gpu=False)
+    return reader
+
 tokenizer, model = load_model()
 explainer = LimeTextExplainer(class_names=["Safe", "Phishing"])
+ocr_reader = load_ocr()
 
 # ── Helper Functions ──
 def predict_proba(texts):
@@ -114,68 +131,24 @@ def phishscan_predict(email_text, sender_email=""):
         "reasons": (rule_reasons + lime_reasons) or ["No specific threat indicators found."]
     }
 
-# ══════════════════════════════════════════════
-#  UI
-# ══════════════════════════════════════════════
-st.markdown("## 🎣 PhishScan AI")
-st.markdown("**AI-Powered Email Threat Detector** — Paste a suspicious email and get an instant risk report.")
-st.divider()
-
-col1, col2 = st.columns([2, 1])
-with col1:
-    email_text = st.text_area(
-        "📧 Email Body",
-        height=220,
-        placeholder="Paste the full email content here..."
-    )
-with col2:
-    sender = st.text_input(
-        "📨 Sender Email (optional)",
-        placeholder="e.g. support@paypa1.com"
-    )
-    st.markdown("<br>", unsafe_allow_html=True)
-    scan = st.button("🔍 Scan Email", type="primary", use_container_width=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    # Quick example button
-    if st.button("⚡ Load Example", use_container_width=True):
-        st.session_state["example"] = True
-
-# Load example
-if st.session_state.get("example"):
-    email_text = "Dear Customer, your PayPal account has been suspended. Verify immediately or it will be permanently closed. Click here to login: http://paypa1-secure.com/verify"
-    sender = "support@paypa1.com"
-    st.session_state["example"] = False
-
-# ── Scan Result ──
-if scan and email_text.strip():
-    with st.spinner("Scanning with AI..."):
-        r = phishscan_predict(email_text, sender)
-
-    # Score display
+def show_result(r):
     st.markdown(f"""
     <div class="score-box" style="background: {r['color']}15;
          border: 1px solid {r['color']}44;">
       <div class="score-lbl">RISK SCORE</div>
       <div class="score-num" style="color:{r['color']}">{r['score']}</div>
       <div class="score-lbl">out of 100</div>
-      <div class="verdict"  style="color:{r['color']}">{r['verdict']}</div>
+      <div class="verdict" style="color:{r['color']}">{r['verdict']}</div>
       <div class="conf-lbl">AI Confidence: {r['confidence']}%</div>
     </div>""", unsafe_allow_html=True)
 
-    # Risk bar
     st.progress(r['score'] / 100)
 
-    # Reasons
     st.markdown("#### 🚩 Detection Reasons")
-    is_safe = r['score'] < 40
-    css_cls  = "safe-box" if is_safe else "reason-box"
+    css_cls = "safe-box" if r['score'] < 40 else "reason-box"
     for reason in r['reasons']:
-        st.markdown(
-            f'<div class="reason-box {css_cls}">{reason}</div>',
-            unsafe_allow_html=True
-        )
-
-    # Advice
+        st.markdown(f'<div class="reason-box {css_cls}">{reason}</div>',
+                    unsafe_allow_html=True)
     st.divider()
     if r['score'] >= 70:
         st.error("⛔ **Do NOT click any links or reply to this email.** Report it to your email provider and delete it immediately.")
@@ -184,13 +157,126 @@ if scan and email_text.strip():
     else:
         st.success("✅ **This email appears safe.** Always stay vigilant — no detector is 100% accurate.")
 
-elif scan:
-    st.warning("Please paste an email body to scan.")
+# ══════════════════════════════════════════════
+#  UI
+# ══════════════════════════════════════════════
+st.markdown("## 🎣 PhishScan AI")
+st.markdown("**AI-Powered Email Threat Detector** — Paste email text or upload a screenshot.")
+st.divider()
 
-# Footer
+# ── Two tabs ──
+tab1, tab2 = st.tabs(["📝 Paste Email Text", "🖼️ Upload Email Screenshot"])
+
+# ════════════════════════════════
+#  TAB 1 — Paste Text
+# ════════════════════════════════
+with tab1:
+    col1, col2 = st.columns([2, 1])
+
+    with col1:
+        email_text_input = st.text_area(
+            "📧 Email Body",
+            height=220,
+            placeholder="Paste the full email content here..."
+        )
+    with col2:
+        sender_text = st.text_input(
+            "📨 Sender Email (optional)",
+            placeholder="e.g. support@paypa1.com",
+            key="sender_text"
+        )
+        st.markdown("<br>", unsafe_allow_html=True)
+        scan_text_btn = st.button(
+            "🔍 Scan Email",
+            type="primary",
+            use_container_width=True,
+            key="scan_text_btn"
+        )
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("⚡ Load Example", use_container_width=True, key="example_btn"):
+            st.session_state["load_example"] = True
+
+    # Load example into session
+    if st.session_state.get("load_example"):
+        email_text_input = "Dear Customer, your PayPal account has been suspended. Verify immediately or it will be permanently closed. Click here to login: http://paypa1-secure.com/verify"
+        sender_text = "support@paypa1.com"
+        st.session_state["load_example"] = False
+
+    if scan_text_btn:
+        if email_text_input.strip():
+            with st.spinner("Scanning with AI..."):
+                result = phishscan_predict(email_text_input, sender_text)
+            show_result(result)
+        else:
+            st.warning("Please paste an email body to scan.")
+
+# ════════════════════════════════
+#  TAB 2 — Upload Image
+# ════════════════════════════════
+with tab2:
+    st.markdown("Upload a **screenshot** of a suspicious email — the AI will read the text and analyze it automatically.")
+    st.markdown("") 
+
+    uploaded_file = st.file_uploader(
+        "📎 Upload Email Screenshot",
+        type=["png", "jpg", "jpeg", "webp"],
+        help="Supported: PNG, JPG, JPEG, WEBP"
+    )
+
+    if uploaded_file is not None:
+        # Show uploaded image
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Uploaded email screenshot", use_column_width=True)
+
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            sender_img = st.text_input(
+                "📨 Sender Email (optional)",
+                placeholder="e.g. support@paypa1.com",
+                key="sender_img"
+            )
+        with col2:
+            st.markdown("<br>", unsafe_allow_html=True)
+            scan_image_btn = st.button(
+                "🔍 Scan Screenshot",
+                type="primary",
+                use_container_width=True,
+                key="scan_image_btn"
+            )
+
+        if scan_image_btn:
+            # Step 1 — Extract text from image
+            with st.spinner("Reading text from image with OCR..."):
+                img_array = np.array(image)
+                ocr_results = ocr_reader.readtext(img_array)
+                extracted_text = " ".join([
+                    text for (_, text, confidence) in ocr_results
+                    if confidence > 0.3
+                ])
+
+            if extracted_text.strip():
+                # Show what was extracted
+                st.markdown("#### 📄 Text Extracted from Image")
+                st.markdown(
+                    f'<div class="ocr-box">{extracted_text}</div>',
+                    unsafe_allow_html=True
+                )
+
+                # Step 2 — Run AI analysis on extracted text
+                with st.spinner("Analyzing extracted text with AI..."):
+                    result = phishscan_predict(extracted_text, sender_img)
+
+                show_result(result)
+
+            else:
+                st.error("❌ Could not extract text from this image. Please try a clearer screenshot.")
+                st.info("💡 Tips: Use a high-resolution screenshot, ensure text is clearly visible, avoid blurry or dark images.")
+
+# ── Footer ──
 st.divider()
 st.markdown(
     "<div style='text-align:center; font-size:12px; color:#2a3a55;'>"
-    "PhishScan AI — Cyber Defense Hub · Powered by DistilBERT + LIME"
-    "</div>", unsafe_allow_html=True
+    "PhishScan AI — Cyber Defense Hub · Powered by DistilBERT + LIME + EasyOCR"
+    "</div>",
+    unsafe_allow_html=True
 )
