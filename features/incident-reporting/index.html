@@ -11,16 +11,15 @@
   <link rel="stylesheet" href="css/tracker.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/integration.css">
+  <link rel="stylesheet" href="css/navpanels.css">
 </head>
 <body>
 
   <!-- ══ NAVBAR ══════════════════════════════════════ -->
   <nav class="navbar">
     <a class="nav-brand" href="../../index.html">
-      <div class="brand-hex">
-        <svg viewBox="0 0 24 24" width="22" height="22">
-          <polygon points="12 2 22 7 22 17 12 22 2 17 2 7"/>
-        </svg>
+      <div class="brand-logo">
+        <img src="/Project Zero Trust.png" alt="Project Zero Trust Logo">
       </div>
       PROJECT ZERO TRUST
     </a>
@@ -33,20 +32,165 @@
     </div>
 
     <div class="nav-actions">
-      <button class="nav-icon-btn" title="Notifications">
+      <button class="nav-icon-btn" id="notifBtn" title="Notifications"
+              onclick="NavPanels.toggleNotif()">
         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-badge" id="notifBadge"></span>
       </button>
-      <button class="nav-icon-btn" title="Settings">
+      <button class="nav-icon-btn" id="settingsBtn" title="Settings"
+              onclick="NavPanels.toggleSettings()">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
-      <div class="nav-avatar">U</div>
+      
     </div>
   </nav>
+
+  <!-- ══ NOTIFICATIONS PANEL ════════════════════════ -->
+  <div class="nav-panel-overlay" id="panelOverlay" onclick="NavPanels.closeAll()"></div>
+
+  <div class="nav-panel" id="notifPanel">
+    <div class="nav-panel-header">
+      <span class="nav-panel-title">Notifications</span>
+      <button class="nav-panel-close" onclick="NavPanels.closeAll()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+             stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6"  y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="nav-panel-body" id="notifBody">
+      <!-- Populated by NavPanels.js -->
+    </div>
+    <div class="nav-panel-footer">
+      <button class="nav-panel-action" onclick="NavPanels.markAllRead()">
+        Mark all as read
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ SETTINGS PANEL ═════════════════════════════ -->
+  <div class="nav-panel nav-panel-settings" id="settingsPanel">
+    <div class="nav-panel-header">
+      <span class="nav-panel-title">Settings</span>
+      <button class="nav-panel-close" onclick="NavPanels.closeAll()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+             stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6"  y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="nav-panel-body">
+
+      <div class="settings-group">
+        <div class="settings-group-label">Appearance</div>
+
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-title">Reduced Motion</div>
+            <div class="settings-row-sub">Disable all animations</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="settingMotion"
+                   onchange="NavPanels.saveSetting('reducedMotion', this.checked)">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-title">Compact Mode</div>
+            <div class="settings-row-sub">Tighter spacing throughout</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="settingCompact"
+                   onchange="NavPanels.saveSetting('compactMode', this.checked)">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-label">Privacy</div>
+
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-title">AI Auto-Classification</div>
+            <div class="settings-row-sub">Suggest category from description</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="settingAI" checked
+                   onchange="NavPanels.saveSetting('aiClassifier', this.checked)">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-title">Save Draft Automatically</div>
+            <div class="settings-row-sub">Restore unfinished reports</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="settingDraft" checked
+                   onchange="NavPanels.saveSetting('autoDraft', this.checked)">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-label">Data</div>
+
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-title">Stored Reports</div>
+            <div class="settings-row-sub" id="storedReportsCount">Calculating…</div>
+          </div>
+          <button class="settings-action-btn danger"
+                  onclick="NavPanels.clearAllReports()">
+            Clear All
+          </button>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-title">Claude API Key</div>
+            <div class="settings-row-sub" id="apiKeyStatus">Not configured</div>
+          </div>
+          <button class="settings-action-btn"
+                  onclick="NavPanels.closeAll(); Classifier.showKeyModal()">
+            Configure
+          </button>
+        </div>
+
+      </div>
+
+      <div class="settings-version">
+        Project Zero Trust · IRS v1.0 · Phase 6
+      </div>
+
+    </div>
+  </div>
 
   <main>
 
     <!-- ══ HERO ════════════════════════════════════════ -->
     <section class="hero">
+      <div class="video-bg-wrap">
+
+        <video class="hero-vid" id="vid1" muted playsinline>
+          <source src="./assests/animation3.mp4" type="video/mp4">
+        </video>
+
+        <video class="hero-vid" id="vid2" muted playsinline>
+          <source src="./assests/animation3.mp4" type="video/mp4">
+        </video>
+
+      </div>
+
       <div class="hero-bg-grid"></div>
 
       <div class="system-active-badge">
@@ -653,22 +797,22 @@
   <script src="js/tracker.js"></script>
   <script src="js/dashboard.js"></script>
   <script src="js/export.js"></script>
+  <script src="js/navpanels.js"></script>
   <script src="js/integration.js"></script>
   <script src="js/wizard.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Init dashboard with seed data
+      // 1. Init nav panels (notifications + settings)
+      NavPanels.init();
+
+      // 2. Init dashboard with seed data
       Dashboard.init();
 
-      // 2. Init wizard FIRST so categories are rendered
-      //    (wizard no longer has its own DOMContentLoaded listener)
+      // 3. Init wizard FIRST so categories are rendered
       wizard.init();
 
-      // 3. Init all Phase 6 integrations AFTER wizard
-      //    Integration reads the ?prefill= URL param, saves to localStorage,
-      //    then calls wizard.runPrefill() to fill the form — this order
-      //    guarantees the category grid exists before prefill tries to select one
+      // 4. Init all Phase 6 integrations AFTER wizard
       Integration.init();
 
       // Scroll-to-top visibility
@@ -678,5 +822,56 @@
       });
     });
   </script>
+  <script>
+  (function () {
+    const v1     = document.getElementById('vid1');
+    const v2     = document.getElementById('vid2');
+    const FADE   = 1.8;   // seconds — must match CSS transition duration
+    let   active = v1;
+    let   next   = v2;
+
+    function startNext() {
+      next.currentTime = 0;
+      next.play();
+      next.classList.add('playing');
+      active.classList.remove('playing');
+
+      const temp = active;
+      active     = next;
+      next       = temp;
+    }
+
+    v1.addEventListener('loadedmetadata', () => {
+      const crossAt = v1.duration - FADE;
+
+      v1.addEventListener('timeupdate', function handler() {
+        if (v1.currentTime >= crossAt) {
+          v1.removeEventListener('timeupdate', handler);
+          startNext();
+        }
+      });
+
+      // Each time active video nears end, trigger next
+      function watchLoop() {
+        active.addEventListener('timeupdate', function trigger() {
+          if (active.currentTime >= active.duration - FADE) {
+            active.removeEventListener('timeupdate', trigger);
+            startNext();
+            setTimeout(watchLoop, (FADE + 0.5) * 1000);
+          }
+        });
+      }
+
+      v1.play();
+      v1.classList.add('playing');
+
+      // Pre-load v2 silently
+      v2.load();
+
+      setTimeout(watchLoop, (crossAt + 0.5) * 1000);
+    });
+  })();
+  </script>
+
 </body>
 </html>

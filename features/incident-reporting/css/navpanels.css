@@ -1,0 +1,396 @@
+/* =============================================
+   PROJECT ZERO TRUST
+   navpanels.css — Notification & Settings panels
+   ============================================= */
+
+/* ══════════════════════════════
+   NOTIFICATION BADGE
+══════════════════════════════ */
+.nav-icon-btn { position: relative; }
+
+.notif-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 1.5px solid var(--bg);
+  display: none;
+}
+
+.notif-badge.show { display: block; }
+
+/* ══════════════════════════════
+   OVERLAY (click-outside-to-close)
+══════════════════════════════ */
+.nav-panel-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 149;
+  background: transparent;
+}
+
+.nav-panel-overlay.show { display: block; }
+
+/* ══════════════════════════════
+   PANEL BASE
+══════════════════════════════ */
+.nav-panel {
+  position: fixed;
+  top: 56px;
+  right: -340px;
+  width: 320px;
+  max-height: calc(100vh - 72px);
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 0 0 14px 14px;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  opacity: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.nav-panel.open {
+  right: 0;
+  opacity: 1;
+}
+
+/* Settings panel is slightly wider */
+.nav-panel-settings { width: 340px; right: -360px; }
+
+/* ══════════════════════════════
+   PANEL HEADER
+══════════════════════════════ */
+.nav-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.nav-panel-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  font-weight: 500;
+}
+
+.nav-panel-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: color 0.18s, background 0.18s;
+}
+
+.nav-panel-close:hover {
+  color: var(--text2);
+  background: var(--border);
+}
+
+/* ══════════════════════════════
+   PANEL BODY (scrollable)
+══════════════════════════════ */
+.nav-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.nav-panel-body::-webkit-scrollbar { width: 4px; }
+.nav-panel-body::-webkit-scrollbar-track { background: transparent; }
+.nav-panel-body::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════
+   NOTIFICATION ITEMS
+══════════════════════════════ */
+.notif-item {
+  display: flex;
+  gap: 12px;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+  animation: fadeInUp 0.25s ease both;
+}
+
+.notif-item:last-child { border-bottom: none; }
+
+.notif-item:hover { background: rgba(255,255,255,0.02); }
+
+.notif-item.unread { background: rgba(0,212,255,0.03); }
+
+.notif-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.notif-dot.unread { background: var(--cyan); }
+.notif-dot.read   { background: var(--border2); }
+
+.notif-content { flex: 1; min-width: 0; }
+
+.notif-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+
+.notif-body {
+  font-size: 12px;
+  color: var(--muted2);
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.notif-time {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+/* Type icons */
+.notif-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-icon svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.notif-icon.warning {
+  background: rgba(245,158,11,0.10);
+  color: var(--amber);
+}
+
+.notif-icon.danger {
+  background: rgba(255,59,92,0.10);
+  color: var(--red);
+}
+
+.notif-icon.success {
+  background: rgba(16,185,129,0.10);
+  color: var(--green);
+}
+
+.notif-icon.info {
+  background: var(--cyan-dim);
+  color: var(--cyan);
+}
+
+/* Empty notifications state */
+.notif-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.notif-empty svg {
+  stroke: var(--muted);
+  fill: none;
+  margin-bottom: 0.75rem;
+  opacity: 0.5;
+}
+
+.notif-empty p {
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+/* ══════════════════════════════
+   PANEL FOOTER
+══════════════════════════════ */
+.nav-panel-footer {
+  padding: 0.75rem 1.2rem;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.nav-panel-action {
+  background: none;
+  border: none;
+  color: var(--cyan);
+  font-size: 12.5px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.18s;
+}
+
+.nav-panel-action:hover { opacity: 0.75; }
+
+/* ══════════════════════════════
+   SETTINGS GROUPS
+══════════════════════════════ */
+.settings-group {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-group:last-of-type { border-bottom: none; }
+
+.settings-group-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.5rem 1.2rem 0.3rem;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0.7rem 1.2rem;
+  transition: background 0.15s;
+}
+
+.settings-row:hover { background: rgba(255,255,255,0.02); }
+
+.settings-row-info { flex: 1; }
+
+.settings-row-title {
+  font-size: 13px;
+  color: var(--text2);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.settings-row-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Toggle switch */
+.toggle-switch { position: relative; display: inline-block; flex-shrink: 0; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+.toggle-track {
+  display: block;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--border2);
+  cursor: pointer;
+  transition: background 0.25s;
+  position: relative;
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--muted2);
+  transition: transform 0.25s, background 0.25s;
+}
+
+.toggle-switch input:checked + .toggle-track {
+  background: var(--cyan);
+}
+
+.toggle-switch input:checked + .toggle-track::after {
+  transform: translateX(16px);
+  background: #08101f;
+}
+
+/* Settings action buttons */
+.settings-action-btn {
+  background: none;
+  border: 1px solid var(--border2);
+  border-radius: 7px;
+  padding: 5px 14px;
+  color: var(--muted2);
+  font-size: 12px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.settings-action-btn:hover {
+  border-color: var(--cyan-border);
+  color: var(--cyan);
+}
+
+.settings-action-btn.danger:hover {
+  border-color: rgba(255,59,92,0.4);
+  color: var(--red);
+}
+
+.settings-version {
+  padding: 1rem 1.2rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  border-top: 1px solid var(--border);
+}
+
+/* ══════════════════════════════
+   ACTIVE STATE ON NAV BUTTONS
+══════════════════════════════ */
+.nav-icon-btn.active {
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  border-radius: 6px;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 400px) {
+  .nav-panel,
+  .nav-panel-settings {
+    width: 100vw;
+    border-radius: 0;
+  }
+}
