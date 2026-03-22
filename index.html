@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cyber Defense Hub — AI-Powered Cybersecurity Platform</title>
+<title>Project Zero Trust — AI-Powered Cybersecurity Platform</title>
+<link rel="icon" type="image/png" href="/Project Zero Trust.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css">
 <script src="../incident-reporting/js/phishscan-bridge.js"></script>
@@ -25,6 +26,13 @@
           <div class="di-info">
             <div class="di-name">PhishScan AI <span class="nav-badge">NEW</span></div>
             <div class="di-desc">Email Threat Detector & Analyzer</div>
+          </div>
+        </a>
+        <a href="/features/incident-reporting/index.html" class="dropdown-item">
+          <div class="di-icon">🚨</div>
+          <div class="di-info">
+            <div class="di-name">Incident Reporting <span class="nav-badge" style="background:rgba(255,59,92,0.15);color:#ff3b5c;border:1px solid rgba(255,59,92,0.3);">NEW</span></div>
+            <div class="di-desc">Report & track cyber fraud incidents</div>
           </div>
         </a>
         <div class="dropdown-item" style="opacity:0.45; cursor:default;">
@@ -51,6 +59,7 @@
     <button class="btn-signup"><a href="signup.html">Sign Up Free</a></button>
   </div>
 </nav>
+ 
 
 <!-- ══════════════ HERO ══════════════ -->
 <section id="hero">
@@ -140,9 +149,9 @@
     <div class="about-grid">
       <div class="reveal">
         <div class="sec-label">About the Platform</div>
-        <h2 class="sec-title">🔐 What is <span class="c">Cyber Defense Hub?</span></h2>
+        <h2 class="sec-title">🔐 What is <span class="c">Project Zero Trust?</span></h2>
         <p class="sec-sub" style="margin-bottom: 20px;">
-          Cyber Defense Hub is a cybersecurity awareness and protection platform designed to help users identify and defend against modern cyber threats.
+          Project Zero Trust is a cybersecurity awareness and protection platform designed to help users identify and defend against modern cyber threats.
         </p>
         <p style="font-size:15px; color:var(--muted-d); line-height:1.8; margin-bottom:24px;">
           Our platform provides intelligent tools, educational resources, and AI-powered security scanners to protect individuals and organizations from phishing, scams, and malicious activities online.
@@ -318,7 +327,7 @@
 <section id="why" class="dark-section" style="background:var(--dark2);">
   <div class="ds-inner">
     <div class="sec-label reveal">Why Choose Us</div>
-    <h2 class="sec-title reveal">🛡 Why Use <span class="c">Cyber Defense Hub?</span></h2>
+    <h2 class="sec-title reveal">🛡 Why Use <span class="c">Project Zero Trust?</span></h2>
     <p class="sec-sub reveal">Built for real people — not just security professionals. Powerful, clear, and free to use.</p>
     <div class="why-grid reveal">
       <div class="why-item">
@@ -409,12 +418,13 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="fb-logo"><div class="shield">🛡</div> Cyber Defense Hub</div>
+      <div class="fb-logo"><div class="shield">🛡</div> Project Zero Trust</div>
       <p>AI-powered cybersecurity tools and awareness resources for everyone — from individuals to organizations.</p>
     </div>
     <div class="footer-col">
       <h5>Tools</h5>
-      <a href="phishing-detector-hackathon.html">PhishScan AI</a>
+      <a href="https://phishscan-ai-4mpcusz7thepqtvh73nkqh.streamlit.app" target="_blank">PhishScan AI</a>
+      <a href="/features/incident-reporting/index.html">Incident Reporting</a>
       <a href="#">URL Scanner</a>
       <a href="#">Password Audit</a>
       <a href="#">Header Analyzer</a>
@@ -443,8 +453,9 @@
     </div>
   </div>
 </footer>
+ 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
-<script>
 // ── Scroll Reveal ──
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
