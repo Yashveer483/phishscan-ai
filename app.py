@@ -1,10 +1,14 @@
 # app.py — Run with: streamlit run app.py
+# Deployed at: https://phishscan-ai-4mpcusz7thepqtvh73nkqh.streamlit.app
 
 from PIL import Image
 import easyocr
 import io
 import os
+import json
+import base64
 import streamlit as st
+import streamlit.components.v1 as components
 import torch
 import numpy as np
 import Levenshtein
@@ -17,6 +21,12 @@ st.set_page_config(
     page_icon="🎣",
     layout="centered"
 )
+
+# ── IRS URL ──────────────────────────────────────────────────────────────────
+# Your IRS runs locally via Live Server.
+# Update the port if yours is different from 5500.
+IRS_BASE_URL = "http://127.0.0.1:5501/features/incident-reporting/index.html"
+# ─────────────────────────────────────────────────────────────────────────────
 
 # ── Custom CSS ──
 st.markdown("""
@@ -131,7 +141,63 @@ def phishscan_predict(email_text, sender_email=""):
         "reasons": (rule_reasons + lime_reasons) or ["No specific threat indicators found."]
     }
 
-def show_result(r):
+
+# ── Build IRS URL with Base64-encoded prefill param ──────────────────────────
+def build_irs_url(result, email_text="", sender_email=""):
+    """
+    Encodes the scan data as Base64 JSON and appends it as a URL parameter.
+    The IRS reads ?prefill= on page load via integration.js.
+
+    Example output:
+    http://127.0.0.1:5500/features/incident-reporting/index.html?prefill=eyJzdWJqZWN0Ij...
+    """
+    first_line = email_text.strip().split('\n')[0][:80] if email_text else ""
+
+    prefill = {
+        "subject":     first_line or "Suspicious email detected by PhishScan",
+        "sender":      sender_email or "",
+        "flags":       result["reasons"],
+        "threatLevel": "DANGEROUS" if result["score"] >= 70 else "SUSPICIOUS",
+        "score":       result["score"],
+        "timestamp":   ""
+    }
+
+    encoded = base64.urlsafe_b64encode(
+        json.dumps(prefill).encode("utf-8")
+    ).decode("utf-8")
+
+    return f"{IRS_BASE_URL}?prefill={encoded}"
+
+
+# ── Report Button — uses st.link_button (always visible, no iframe issues) ───
+def show_report_button(result, email_text="", sender_email=""):
+    """
+    Renders the Report This Incident button for score >= 40.
+    Uses st.link_button so it opens the IRS directly as a hyperlink —
+    no JS, no localStorage, no cross-origin issues.
+    """
+    if result["score"] < 40:
+        return
+
+    irs_url = build_irs_url(result, email_text, sender_email)
+
+    st.markdown("---")
+
+    # st.link_button opens the URL in the same tab
+    st.link_button(
+        "🚨 Report This Incident to Project Zero Trust",
+        url=irs_url,
+        use_container_width=True,
+        type="primary"
+    )
+    st.caption(
+        "Opens the Incident Reporting System with this scan pre-filled. "
+        "Make sure your IRS page is running on Live Server first."
+    )
+
+
+# ── show_result ───────────────────────────────────────────────────────────────
+def show_result(r, email_text="", sender_email=""):
     st.markdown(f"""
     <div class="score-box" style="background: {r['color']}15;
          border: 1px solid {r['color']}44;">
@@ -150,12 +216,20 @@ def show_result(r):
         st.markdown(f'<div class="reason-box {css_cls}">{reason}</div>',
                     unsafe_allow_html=True)
     st.divider()
+
     if r['score'] >= 70:
-        st.error("⛔ **Do NOT click any links or reply to this email.** Report it to your email provider and delete it immediately.")
+        st.error("⛔ **Do NOT click any links or reply to this email.** "
+                 "Report it to your email provider and delete it immediately.")
     elif r['score'] >= 40:
-        st.warning("⚠️ **Treat this email with caution.** Verify the sender through official channels before taking any action.")
+        st.warning("⚠️ **Treat this email with caution.** "
+                   "Verify the sender through official channels before taking any action.")
     else:
-        st.success("✅ **This email appears safe.** Always stay vigilant — no detector is 100% accurate.")
+        st.success("✅ **This email appears safe.** "
+                   "Always stay vigilant — no detector is 100% accurate.")
+
+    # Show Report button for suspicious / dangerous results
+    show_report_button(r, email_text, sender_email)
+
 
 # ══════════════════════════════════════════════
 #  UI
@@ -164,7 +238,6 @@ st.markdown("## 🎣 PhishScan AI")
 st.markdown("**AI-Powered Email Threat Detector** — Paste email text or upload a screenshot.")
 st.divider()
 
-# ── Two tabs ──
 tab1, tab2 = st.tabs(["📝 Paste Email Text", "🖼️ Upload Email Screenshot"])
 
 # ════════════════════════════════
@@ -196,9 +269,10 @@ with tab1:
         if st.button("⚡ Load Example", use_container_width=True, key="example_btn"):
             st.session_state["load_example"] = True
 
-    # Load example into session
     if st.session_state.get("load_example"):
-        email_text_input = "Dear Customer, your PayPal account has been suspended. Verify immediately or it will be permanently closed. Click here to login: http://paypa1-secure.com/verify"
+        email_text_input = ("Dear Customer, your PayPal account has been suspended. "
+                            "Verify immediately or it will be permanently closed. "
+                            "Click here to login: http://paypa1-secure.com/verify")
         sender_text = "support@paypa1.com"
         st.session_state["load_example"] = False
 
@@ -206,7 +280,7 @@ with tab1:
         if email_text_input.strip():
             with st.spinner("Scanning with AI..."):
                 result = phishscan_predict(email_text_input, sender_text)
-            show_result(result)
+            show_result(result, email_text_input, sender_text)
         else:
             st.warning("Please paste an email body to scan.")
 
@@ -214,8 +288,9 @@ with tab1:
 #  TAB 2 — Upload Image
 # ════════════════════════════════
 with tab2:
-    st.markdown("Upload a **screenshot** of a suspicious email — the AI will read the text and analyze it automatically.")
-    st.markdown("") 
+    st.markdown("Upload a **screenshot** of a suspicious email — "
+                "the AI will read the text and analyze it automatically.")
+    st.markdown("")
 
     uploaded_file = st.file_uploader(
         "📎 Upload Email Screenshot",
@@ -224,7 +299,6 @@ with tab2:
     )
 
     if uploaded_file is not None:
-        # Show uploaded image
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded email screenshot", use_column_width=True)
 
@@ -245,38 +319,35 @@ with tab2:
             )
 
         if scan_image_btn:
-            # Step 1 — Extract text from image
             with st.spinner("Reading text from image with OCR..."):
-                img_array = np.array(image)
-                ocr_results = ocr_reader.readtext(img_array)
+                img_array      = np.array(image)
+                ocr_results    = ocr_reader.readtext(img_array)
                 extracted_text = " ".join([
                     text for (_, text, confidence) in ocr_results
                     if confidence > 0.3
                 ])
 
             if extracted_text.strip():
-                # Show what was extracted
                 st.markdown("#### 📄 Text Extracted from Image")
                 st.markdown(
                     f'<div class="ocr-box">{extracted_text}</div>',
                     unsafe_allow_html=True
                 )
-
-                # Step 2 — Run AI analysis on extracted text
                 with st.spinner("Analyzing extracted text with AI..."):
                     result = phishscan_predict(extracted_text, sender_img)
-
-                show_result(result)
-
+                show_result(result, extracted_text, sender_img)
             else:
-                st.error("❌ Could not extract text from this image. Please try a clearer screenshot.")
-                st.info("💡 Tips: Use a high-resolution screenshot, ensure text is clearly visible, avoid blurry or dark images.")
+                st.error("❌ Could not extract text from this image. "
+                         "Please try a clearer screenshot.")
+                st.info("💡 Tips: Use a high-resolution screenshot, "
+                        "ensure text is clearly visible, avoid blurry or dark images.")
 
 # ── Footer ──
 st.divider()
 st.markdown(
     "<div style='text-align:center; font-size:12px; color:#2a3a55;'>"
-    "Project Zero Trust presents PhishScan AI - Powered by DistilBERT · LIME · EasyOCR"
+    "Project Zero Trust presents PhishScan AI - "
+    "Powered by DistilBERT · LIME · EasyOCR"
     "</div>",
     unsafe_allow_html=True
 )

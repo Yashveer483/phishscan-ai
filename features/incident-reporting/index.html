@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incident Reporting — Project Zero Trust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/incidents.css">
+  <link rel="stylesheet" href="css/tracker.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/integration.css">
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══════════════════════════════════════ -->
+  <nav class="navbar">
+    <a class="nav-brand" href="../../index.html">
+      <div class="brand-hex">
+        <svg viewBox="0 0 24 24" width="22" height="22">
+          <polygon points="12 2 22 7 22 17 12 22 2 17 2 7"/>
+        </svg>
+      </div>
+      PROJECT ZERO TRUST
+    </a>
+
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Dashboard</a>
+      <a href="#report"          class="nav-link active">Incidents</a>
+      <a href="#tracker"         class="nav-link">Tracker</a>
+      <a href="#dashboard"       class="nav-link">Analytics</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <button class="nav-icon-btn" title="Settings">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <div class="nav-avatar">U</div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ══ HERO ════════════════════════════════════════ -->
+    <section class="hero">
+      <div class="hero-bg-grid"></div>
+
+      <div class="system-active-badge">
+        <span class="pulse-dot"></span>
+        SYSTEM ACTIVE
+      </div>
+
+      <h1 class="hero-title">Report a Cyber Incident</h1>
+      <p class="hero-sub">Help protect your community. Every report makes the network safer.</p>
+
+      <div class="stats-row">
+        <div class="stat-pill">
+          <span class="stat-num" data-target="1284">0</span>
+          <span class="stat-label">Reports Filed</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num" data-target="23">0</span>
+          <span class="stat-label">Active Investigations</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num" data-target="998" data-float="true" data-suffix="%">0</span>
+          <span class="stat-label">Anonymized</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ WIZARD ══════════════════════════════════════ -->
+    <section class="wizard-section" id="report">
+      <div class="wizard-card">
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+          <div class="progress-step active" data-step="1">
+            <div class="step-circle">
+              <span class="step-num">01</span>
+              <svg class="step-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="step-label">Incident Type</span>
+          </div>
+
+          <div class="progress-line">
+            <div class="progress-line-fill" id="line1"></div>
+          </div>
+
+          <div class="progress-step" data-step="2">
+            <div class="step-circle">
+              <span class="step-num">02</span>
+              <svg class="step-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="step-label">Details</span>
+          </div>
+
+          <div class="progress-line">
+            <div class="progress-line-fill" id="line2"></div>
+          </div>
+
+          <div class="progress-step" data-step="3">
+            <div class="step-circle">
+              <span class="step-num">03</span>
+              <svg class="step-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="step-label">Evidence</span>
+          </div>
+
+          <div class="progress-line">
+            <div class="progress-line-fill" id="line3"></div>
+          </div>
+
+          <div class="progress-step" data-step="4">
+            <div class="step-circle">
+              <span class="step-num">04</span>
+              <svg class="step-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="step-label">Review</span>
+          </div>
+        </div>
+
+        <!-- ── STEP 1 — Incident Type ─────────────── -->
+        <div class="step-panel active" id="panel-1">
+          <div class="panel-header">
+            <h2 class="panel-title">Select the Incident Category</h2>
+            <p class="panel-sub">Choose the category that best matches what you've experienced.</p>
+          </div>
+
+          <div class="category-grid" id="categoryGrid">
+            <!-- Rendered by wizard.js -->
+          </div>
+
+          <div class="panel-footer">
+            <div></div>
+            <button class="btn-next" id="nextBtn1" disabled onclick="wizard.next()">
+              Next: Incident Details
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ── STEP 2 — Details ───────────────────── -->
+        <div class="step-panel" id="panel-2">
+          <div class="panel-header">
+            <h2 class="panel-title">Incident Details</h2>
+            <p class="panel-sub">Provide as much detail as possible to help our analysis team.</p>
+          </div>
+
+          <div class="form-grid">
+
+            <div class="form-group full-width">
+              <label class="form-label" for="incidentTitle">
+                Incident Title <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="incidentTitle" class="form-input"
+                       placeholder="Brief description of the incident" maxlength="80"
+                       autocomplete="off">
+                <span class="char-counter" id="titleCounter">0/80</span>
+              </div>
+              <span class="field-error" id="titleError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="incidentDate">
+                Date &amp; Time of Incident <span class="required">*</span>
+              </label>
+              <input type="datetime-local" id="incidentDate" class="form-input">
+              <span class="field-error" id="dateError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="incidentPlatform">
+                Platform / Website Involved
+              </label>
+              <input type="text" id="incidentPlatform" class="form-input"
+                     placeholder="e.g. Gmail, Paytm, Facebook" autocomplete="off">
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label" for="incidentDesc">
+                Describe What Happened <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <textarea id="incidentDesc" class="form-textarea" rows="5" maxlength="1000"
+                  placeholder="Describe the incident in detail — what happened, how you noticed it, any actions taken…"></textarea>
+                <span class="char-counter" id="descCounter">0/1000</span>
+              </div>
+              <span class="field-error" id="descError"></span>
+              <!-- AI Suggestion appears here after classifier runs -->
+              <div id="aiSuggestion"></div>
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">
+                Severity Level <span class="required">*</span>
+              </label>
+              <div class="severity-selector">
+                <button class="severity-btn" data-severity="LOW"      onclick="wizard.setSeverity(this)"><span class="sev-dot"></span>Low</button>
+                <button class="severity-btn" data-severity="MEDIUM"   onclick="wizard.setSeverity(this)"><span class="sev-dot"></span>Medium</button>
+                <button class="severity-btn" data-severity="HIGH"     onclick="wizard.setSeverity(this)"><span class="sev-dot"></span>High</button>
+                <button class="severity-btn" data-severity="CRITICAL" onclick="wizard.setSeverity(this)"><span class="sev-dot"></span>Critical</button>
+              </div>
+              <span class="field-error" id="severityError"></span>
+            </div>
+
+          </div>
+
+          <div class="panel-footer">
+            <button class="btn-back" onclick="wizard.back()">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Back
+            </button>
+            <button class="btn-next" onclick="wizard.next()">
+              Next: Evidence
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ── STEP 3 — Evidence ──────────────────── -->
+        <div class="step-panel" id="panel-3">
+          <div class="panel-header">
+            <h2 class="panel-title">Attach Evidence</h2>
+            <p class="panel-sub">Screenshots or files help us investigate faster. All uploads are optional.</p>
+          </div>
+
+          <div class="upload-zone" id="uploadZone">
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24" width="42" height="42"
+                   stroke="#00D4FF" fill="none" stroke-width="1.4"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 16 12 12 8 16"/>
+                <line x1="12" y1="12" x2="12" y2="21"/>
+                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+              </svg>
+            </div>
+            <p class="upload-label">
+              Drag screenshots here or <span class="upload-link">click to browse</span>
+            </p>
+            <p class="upload-hint">PNG, JPG, WEBP, PDF &nbsp;·&nbsp; Max 5 MB each &nbsp;·&nbsp; Up to 3 files</p>
+            <input type="file" id="fileInput"
+                   accept=".png,.jpg,.jpeg,.webp,.pdf" multiple
+                   style="display:none">
+          </div>
+
+          <div class="upload-previews" id="uploadPreviews"></div>
+          <div class="upload-error"    id="uploadError"></div>
+
+          <div class="form-group" style="margin-top:1.5rem">
+            <label class="form-label" for="suspectUrl">
+              Suspect URL or Email Address
+            </label>
+            <input type="text" id="suspectUrl" class="form-input"
+                   placeholder="https://suspicious-site.com  or  attacker@email.com"
+                   autocomplete="off">
+            <span class="field-error" id="urlError"></span>
+          </div>
+
+          <div class="panel-footer">
+            <button class="btn-back" onclick="wizard.back()">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Back
+            </button>
+            <button class="btn-next" onclick="wizard.next()">
+              Next: Review
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ── STEP 4 — Review & Submit ──────────── -->
+        <div class="step-panel" id="panel-4">
+          <div class="panel-header">
+            <h2 class="panel-title">Review Your Report</h2>
+            <p class="panel-sub">Check all details before submitting. You cannot edit after submission.</p>
+          </div>
+
+          <div class="review-card" id="reviewCard">
+            <!-- Populated by wizard.js when step 4 is entered -->
+          </div>
+
+          <div class="consent-row">
+            <label class="consent-label">
+              <input type="checkbox" id="consentCheck" onchange="wizard.updateSubmitBtn()">
+              <span class="consent-text">
+                I confirm this report is accurate to the best of my knowledge and understand
+                it will be reviewed by the security team.
+              </span>
+            </label>
+          </div>
+
+          <div class="panel-footer">
+            <button class="btn-back" onclick="wizard.back()">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Back
+            </button>
+            <button class="btn-submit" id="submitBtn" disabled onclick="wizard.submit()">
+              <svg viewBox="0 0 24 24" width="16" height="16"
+                   fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Submit Report
+            </button>
+          </div>
+
+          <p class="privacy-note">
+            <svg viewBox="0 0 24 24" width="14" height="14"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Your identity is never stored. Reports are fully anonymized.
+          </p>
+        </div>
+
+        <!-- ── SUCCESS SCREEN ─────────────────────── -->
+        <div class="success-screen" id="successScreen">
+          <div class="success-icon">
+            <svg viewBox="0 0 64 64" width="90" height="90">
+              <circle cx="32" cy="32" r="30"
+                      fill="none" stroke="#10B981" stroke-width="2"/>
+              <polyline points="20 32 28 40 44 24"
+                        fill="none" stroke="#10B981" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="check-path"/>
+            </svg>
+          </div>
+
+          <h2 class="success-title">Report Submitted</h2>
+          <p class="success-sub">
+            Your incident has been logged and assigned a tracking ID.
+            Our security team will begin review shortly.
+          </p>
+
+          <div class="report-id-display">
+            <span class="report-id-label">Your Report ID</span>
+            <div class="report-id-value-row">
+              <span class="report-id-value" id="displayReportId">ZT-2024-XXXX</span>
+              <button class="copy-btn" onclick="wizard.copyId()">
+                <svg viewBox="0 0 24 24" width="13" height="13"
+                     fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                Copy
+              </button>
+            </div>
+            <p class="report-id-hint">
+              Save this ID — you'll need it to track your report status.
+            </p>
+          </div>
+
+          <button class="btn-new" onclick="wizard.reset()">
+            Submit Another Report
+          </button>
+        </div>
+
+      </div><!-- /wizard-card -->
+    </section>
+
+  </main>
+
+  <!-- ══ SECTION DIVIDER ════════════════════════════ -->
+  <div class="section-divider">
+    <div class="divider-icon">
+      <svg viewBox="0 0 24 24" width="14" height="14">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ TRACKER SECTION ════════════════════════════ -->
+  <section class="tracker-section" id="tracker">
+
+    <div class="section-eyebrow">Incident Tracker</div>
+    <h2 class="section-title-lg">Track Your Report</h2>
+    <p class="section-sub">
+      Stay updated on the status of your reported incident using your unique Report ID.
+    </p>
+
+    <div class="tracker-search-row">
+      <div class="tracker-input-wrap">
+        <div class="tracker-input-icon">
+          <svg viewBox="0 0 24 24" width="16" height="16">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="trackerInput"
+          class="tracker-input"
+          placeholder="Enter your Report ID — e.g. ZT-2025-A9F3"
+          maxlength="14"
+          autocomplete="off"
+          onkeydown="Tracker.onKeydown(event)"
+        >
+      </div>
+      <button class="btn-search" onclick="Tracker.search()">
+        <svg viewBox="0 0 24 24" width="15" height="15">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        Search
+      </button>
+    </div>
+
+    <div class="tracker-error" id="trackerError"></div>
+    <div class="tracker-result" id="trackerResult"></div>
+
+  </section>
+
+  <!-- ══ DASHBOARD DIVIDER ══════════════════════════ -->
+  <div class="section-divider" style="margin-bottom:0">
+    <div class="divider-icon-chart">
+      <svg viewBox="0 0 24 24" width="14" height="14">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6"  y1="20" x2="6"  y2="14"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ AWARENESS DASHBOARD ════════════════════════ -->
+  <section class="dashboard-section" id="dashboardSection">
+
+    <div class="dashboard-header">
+      <div class="dashboard-header-left">
+        <div class="section-eyebrow">Live Analytics</div>
+        <h2 class="section-title-lg">Awareness Dashboard</h2>
+        <p class="section-sub" style="margin-bottom:0">
+          Real-time threat landscape analytics based on all submitted reports.
+        </p>
+      </div>
+      <div class="dashboard-actions">
+        <button class="btn-export" id="btnExportPDF" onclick="Exporter.exportPDF()">
+          <svg viewBox="0 0 24 24" width="14" height="14">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9"  y1="15" x2="12" y2="18"/>
+            <line x1="15" y1="15" x2="12" y2="18"/>
+          </svg>
+          Export PDF
+        </button>
+        <button class="btn-export" onclick="Exporter.exportCSV()">
+          <svg viewBox="0 0 24 24" width="14" height="14">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export CSV
+        </button>
+        <button class="btn-export" onclick="Dashboard.refresh()">
+          <svg viewBox="0 0 24 24" width="14" height="14">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    <div id="dashboardInner">
+
+      <!-- Metric Cards -->
+      <div class="metric-grid">
+
+        <div class="metric-card">
+          <div class="metric-icon icon-red">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="metric-label">Top Threat</div>
+          <div class="metric-value" id="metricTopThreat">—</div>
+          <div class="metric-sub"   id="metricTopThreatSub"></div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon icon-cyan">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="metric-label">Most Targeted</div>
+          <div class="metric-value" id="metricTopPlatform">—</div>
+          <div class="metric-sub"   id="metricTopPlatformSub"></div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon icon-amber">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="metric-label">Avg. Resolution</div>
+          <div class="metric-value" id="metricAvgTime">—</div>
+          <div class="metric-sub"   id="metricAvgTimeSub">average resolution</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon icon-green">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="metric-label">Weekly Volume</div>
+          <div class="metric-value" id="metricWeekly">—</div>
+          <div class="metric-sub">
+            <span class="metric-trend" id="metricWeeklyTrend"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-grid">
+
+        <!-- Donut Chart -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="chart-card-title">Incident Breakdown</span>
+            <span class="chart-total-pill" id="donutTotalPill">Total</span>
+          </div>
+          <div class="chart-canvas-wrap" style="position:relative">
+            <canvas id="donutChart" height="220"></canvas>
+            <div class="donut-center">
+              <span class="donut-center-num"  id="donutCenter">—</span>
+              <span class="donut-center-label">Total Cases</span>
+            </div>
+          </div>
+          <div class="chart-legend" id="donutLegend"></div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="chart-card-title">Weekly Activity</span>
+            <span class="chart-total-pill">Last 7 days</span>
+          </div>
+          <div class="chart-canvas-wrap">
+            <div style="position:relative;height:280px">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Recent Reports Table -->
+      <div class="recent-card">
+        <div class="recent-header">
+          <span class="recent-title">Recent Reports</span>
+          <span class="recent-count" id="recentCount"></span>
+        </div>
+        <table class="recent-table">
+          <thead>
+            <tr>
+              <th>Report ID</th>
+              <th>Type</th>
+              <th>Severity</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="recentTableBody">
+            <tr><td colspan="5" class="rt-empty">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /dashboardInner -->
+  </section>
+
+  <!-- ══ EXPORT TOAST ═══════════════════════════════ -->
+  <div class="export-toast" id="exportToast">
+    <svg viewBox="0 0 24 24" width="16" height="16"
+         fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    <span></span>
+  </div>
+  <div class="ai-key-modal" id="aiKeyModal">
+    <div class="ai-key-box">
+      <h3 class="ai-key-title">Enable AI Auto-Classification</h3>
+      <p class="ai-key-desc">
+        Enter your Claude API key to allow Project Zero Trust to automatically
+        suggest the incident category as you type your description.
+        Your key is stored only in this browser — never sent anywhere except
+        <strong>api.anthropic.com</strong>.
+        Get a key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.
+      </p>
+      <input
+        type="password"
+        id="apiKeyInput"
+        class="ai-key-input"
+        placeholder="sk-ant-api03-..."
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') Classifier.submitKey()"
+      >
+      <div class="ai-key-error" id="apiKeyError"></div>
+      <div class="ai-key-actions">
+        <button class="btn-back" style="padding:9px 18px"
+                onclick="Classifier.hideKeyModal()">Cancel</button>
+        <button class="btn-next" style="padding:9px 20px"
+                onclick="Classifier.submitKey()">Save Key</button>
+      </div>
+      <p class="ai-key-note">
+        <svg viewBox="0 0 24 24" width="13" height="13">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Your key is never transmitted to our servers. It calls the Claude API directly from your browser.
+      </p>
+    </div>
+  </div>
+
+  <!-- Scroll-to-top button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" title="Back to top"
+          onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" width="16" height="16">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- CDN Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- App Scripts — order matters -->
+  <script src="js/reportId.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/uploader.js"></script>
+  <script src="js/classifier.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/integration.js"></script>
+  <script src="js/wizard.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Init dashboard with seed data
+      Dashboard.init();
+
+      // Init all Phase 6 integrations
+      Integration.init();
+
+      // Scroll-to-top visibility
+      window.addEventListener('scroll', () => {
+        const btn = document.getElementById('scrollTopBtn');
+        if (btn) btn.classList.toggle('visible', window.scrollY > 500);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+/* =============================================
+   PROJECT ZERO TRUST — Incident Reporting
+   integration.css — Phase 6 UI elements
+   ============================================= */
+
+/* ══════════════════════════════
+   DRAFT RESTORE BANNER
+══════════════════════════════ */
+.draft-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(245,158,11,0.07);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 10px;
+  padding: 0.85rem 1.2rem;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.3s ease both;
+  flex-wrap: wrap;
+}
+
+.draft-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text2);
+}
+
+.draft-banner-left svg { flex-shrink: 0; }
+
+.draft-banner-left strong {
+  color: var(--amber);
+  font-weight: 500;
+}
+
+.draft-banner-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.draft-btn-restore {
+  background: var(--amber);
+  border: none;
+  border-radius: 7px;
+  padding: 7px 16px;
+  color: #08101f;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: opacity 0.18s;
+}
+.draft-btn-restore:hover { opacity: 0.88; }
+
+.draft-btn-discard {
+  background: none;
+  border: 1px solid rgba(245,158,11,0.30);
+  border-radius: 7px;
+  padding: 7px 14px;
+  color: var(--muted2);
+  font-size: 12.5px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.draft-btn-discard:hover { border-color: var(--border2); color: var(--text2); }
+
+/* ══════════════════════════════
+   PHISHSCAN ARRIVAL BANNER
+══════════════════════════════ */
+.phish-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(255,59,92,0.06);
+  border: 1px solid rgba(255,59,92,0.22);
+  border-left: 3px solid var(--red);
+  border-radius: 10px;
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.3s ease both;
+  transition: opacity 0.3s;
+}
+
+.phish-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.phish-banner-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255,59,92,0.10);
+  border: 1px solid rgba(255,59,92,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.phish-banner-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--red);
+  margin-bottom: 2px;
+}
+
+.phish-banner-sub {
+  font-size: 12px;
+  color: var(--muted2);
+}
+
+.phish-banner-sub em {
+  font-style: normal;
+  color: var(--text2);
+}
+
+.phish-banner-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.18s, background 0.18s;
+  flex-shrink: 0;
+}
+.phish-banner-close:hover {
+  color: var(--text2);
+  background: var(--border);
+}
+
+/* ══════════════════════════════
+   UPDATED NAV LINKS FOR SCROLL
+══════════════════════════════ */
+.nav-link[href^="#"] { cursor: pointer; }
+
+/* ══════════════════════════════
+   SCROLL-TO-TOP BUTTON
+══════════════════════════════ */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 200;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-top-btn svg {
+  stroke: var(--muted2);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.scroll-top-btn:hover {
+  border-color: var(--cyan-border);
+  background: var(--cyan-dim);
+}
+
+.scroll-top-btn:hover svg { stroke: var(--cyan); }
+
+/* ══════════════════════════════
+   PREFILL INDICATOR on Step 1
+══════════════════════════════ */
+.prefill-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--red);
+  background: rgba(255,59,92,0.07);
+  border: 1px solid rgba(255,59,92,0.20);
+  border-radius: 6px;
+  padding: 3px 10px;
+  margin-bottom: 1rem;
+}
+
+.prefill-indicator svg {
+  stroke: var(--red);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 540px) {
+  .draft-banner { flex-direction: column; align-items: flex-start; }
+  .phish-banner { flex-direction: column; align-items: flex-start; }
+  .phish-banner-close { align-self: flex-end; margin-top: -2rem; }
+}
