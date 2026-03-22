@@ -237,6 +237,10 @@ const Integration = (() => {
         // Clean the URL so param doesn't persist on refresh
         const cleanUrl = window.location.pathname;
         window.history.replaceState({}, document.title, cleanUrl);
+        // Immediately trigger wizard prefill — it is already initialised by now
+        if (typeof wizard !== 'undefined' && wizard.runPrefill) {
+          wizard.runPrefill();
+        }
         _showPhishBanner(urlData);
         _scrollToWizard();
         return;

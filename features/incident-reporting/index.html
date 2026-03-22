@@ -658,10 +658,17 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Init dashboard with seed data
+      // 1. Init dashboard with seed data
       Dashboard.init();
 
-      // Init all Phase 6 integrations
+      // 2. Init wizard FIRST so categories are rendered
+      //    (wizard no longer has its own DOMContentLoaded listener)
+      wizard.init();
+
+      // 3. Init all Phase 6 integrations AFTER wizard
+      //    Integration reads the ?prefill= URL param, saves to localStorage,
+      //    then calls wizard.runPrefill() to fill the form — this order
+      //    guarantees the category grid exists before prefill tries to select one
       Integration.init();
 
       // Scroll-to-top visibility

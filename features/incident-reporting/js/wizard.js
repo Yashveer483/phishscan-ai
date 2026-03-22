@@ -378,7 +378,14 @@ const wizard = (() => {
     _updateProgressBar();
   }
 
-  return { init, selectCategory, next, back, setSeverity, removeFile, updateSubmitBtn, submit, copyId, reset };
+  // runPrefill is public so integration.js can trigger it after
+  // writing ZT_PREFILL to localStorage from the URL param
+  return {
+    init, selectCategory, next, back, setSeverity,
+    removeFile, updateSubmitBtn, submit, copyId, reset,
+    runPrefill: _checkPhishScanPrefill
+  };
 })();
 
-document.addEventListener('DOMContentLoaded', wizard.init);
+// wizard.init is called explicitly from index.html inline script
+// AFTER Integration.init() so ZT_PREFILL is always ready first
