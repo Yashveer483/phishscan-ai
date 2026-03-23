@@ -149,7 +149,7 @@ def build_irs_url(result, email_text="", sender_email=""):
     The IRS reads ?prefill= on page load via integration.js.
 
     Example output:
-    http://127.0.0.1:5500/features/incident-reporting/index.html?prefill=eyJzdWJqZWN0Ij...
+    https://yashveer483.github.io/Incident-Reporting/index.html?prefill=eyJzdWJqZWN0Ij...
     """
     first_line = email_text.strip().split('\n')[0][:80] if email_text else ""
 
