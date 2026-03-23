@@ -25,7 +25,7 @@ st.set_page_config(
 # ── IRS URL ──────────────────────────────────────────────────────────────────
 # Your IRS runs locally via Live Server.
 # Update the port if yours is different from 5500.
-IRS_BASE_URL = "http://127.0.0.1:5501/features/incident-reporting/index.html"
+IRS_BASE_URL = "https://yashveer483.github.io/Incident-Reporting/index.html"
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Custom CSS ──
